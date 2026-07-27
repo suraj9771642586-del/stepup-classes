@@ -157,3 +157,11 @@ font-size:35px;
 }
 
 }
+.hero-image{
+    display:block;
+    width:300px;
+    max-width:90%;
+    margin:25px auto;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
