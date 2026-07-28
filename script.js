@@ -1,6 +1,7 @@
 // ===========================
 // StepUp Classes Script
 // ===========================
+
 // Smooth Scroll (sirf # links ke liye)
 document.querySelectorAll('nav a').forEach(link => {
     link.addEventListener('click', function(e){
@@ -22,19 +23,16 @@ document.querySelectorAll('nav a').forEach(link => {
 
     });
 });
+
 // Header Effect
 const header = document.querySelector("header");
 
 window.addEventListener("scroll",()=>{
 
     if(window.scrollY>50){
-
         header.style.background="#08306b";
-
     }else{
-
         header.style.background="#0d47a1";
-
     }
 
 });
@@ -43,21 +41,16 @@ window.addEventListener("scroll",()=>{
 document.querySelectorAll(".card").forEach(card=>{
 
     card.addEventListener("mouseenter",()=>{
-
         card.style.transform="translateY(-8px)";
-
     });
 
     card.addEventListener("mouseleave",()=>{
-
         card.style.transform="translateY(0px)";
-
     });
 
 });
 
 // Back To Top Button
-
 const topBtn=document.createElement("button");
 
 topBtn.innerHTML="↑";
@@ -79,30 +72,20 @@ topBtn.style.display="none";
 
 window.addEventListener("scroll",()=>{
 
-if(window.scrollY>300){
-
-topBtn.style.display="block";
-
-}else{
-
-topBtn.style.display="none";
-
-}
+    if(window.scrollY>300){
+        topBtn.style.display="block";
+    }else{
+        topBtn.style.display="none";
+    }
 
 });
 
 topBtn.onclick=()=>{
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
 };
 
 // Welcome Message
-
 console.log("Welcome to StepUp Classes");
