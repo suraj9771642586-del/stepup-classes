@@ -1,9 +1,7 @@
 // ===========================
 // StepUp Classes Script
 // ===========================
-
-// Smooth Scroll
-// Smooth Scroll (sirf # wale links ke liye)
+// Smooth Scroll (sirf # links ke liye)
 document.querySelectorAll('nav a').forEach(link => {
     link.addEventListener('click', function(e){
 
@@ -17,14 +15,13 @@ document.querySelectorAll('nav a').forEach(link => {
 
             if(target){
                 target.scrollIntoView({
-                    behavior:'smooth'
+                    behavior: "smooth"
                 });
             }
         }
 
     });
 });
-
 // Header Effect
 const header = document.querySelector("header");
 
