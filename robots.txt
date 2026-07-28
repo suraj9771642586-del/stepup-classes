@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://suraj9771642586-del.github.io/stepup-classes/sitemap.xml
