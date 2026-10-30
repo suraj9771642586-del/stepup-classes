@@ -1,78 +1,133 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admission Form | StepUp Classes</title>
 
-<link rel="stylesheet" href="style.css">
+<title>Admission Form | StepUp Classes</title>
+<meta name="description" content="Apply for admission at StepUp Classes. Fill out the student admission form online.">
 
 <style>
-body{
-background:#f4f8ff;
-font-family:Arial,sans-serif;
+* {
+    box-sizing: border-box;
 }
 
-.form-box{
-max-width:700px;
-margin:100px auto;
-background:white;
-padding:30px;
-border-radius:10px;
-box-shadow:0 5px 20px rgba(0,0,0,.15);
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background: #f4f8ff;
 }
 
-h1{
-text-align:center;
-color:#0d47a1;
-margin-bottom:25px;
+.form-box {
+    max-width: 630px;
+    margin: 70px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.15);
 }
 
-input,
-select,
-textarea{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:6px;
-font-size:16px;
+h1 {
+    text-align: center;
+    color: #0d47a1;
+    margin-bottom: 10px;
 }
 
-button{
-width:100%;
-padding:15px;
-background:#0d47a1;
-color:white;
-border:none;
-border-radius:6px;
-font-size:18px;
-cursor:pointer;
+.subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 25px;
 }
 
-button:hover{
-background:#08306b;
+label {
+    display: block;
+    font-weight: bold;
+    color: #333;
+    margin-top: 13px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: #0d47a1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #08306b;
+}
+
+.back {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: #0d47a1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.note {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.5;
+    margin-top: 15px;
+}
+
+@media(max-width:600px) {
+    .form-box {
+        margin: 20px auto;
+        padding: 20px;
+    }
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="form-box">
 
-<h1>StepUp Classes Admission Form</h1>
+<h1>🎓 StepUp Classes Admission Form</h1>
 
-<form>
+<p class="subtitle">
+Learn Today, Lead Tomorrow
+</p>
 
-<input type="text" placeholder="Student Name" required>
+<form id="admissionForm">
 
-<input type="text" placeholder="Father's Name" required>
+<label>Student Name</label>
+<input type="text" id="name"
+placeholder="Enter Student Name" required>
 
-<input type="date" required>
+<label>Father's Name</label>
+<input type="text" id="father"
+placeholder="Enter Father's Name" required>
 
-<select required>
-<option>Select Class</option>
+<label>Date of Birth</label>
+<input type="date" id="dob" required>
+
+<label>Select Class</label>
+<select id="studentClass" required>
+<option value="">Select Class</option>
 <option>Class 6</option>
 <option>Class 7</option>
 <option>Class 8</option>
@@ -82,9 +137,37 @@ background:#08306b;
 <option>Class 12</option>
 </select>
 
-<input type="tel" placeholder="Mobile Number" required>
+<label>Select Course</label>
+<select id="course" required>
+<option value="">Select Course</option>
+<option>Foundation</option>
+<option>Science</option>
+<option>Commerce</option>
+<option>Arts</option>
+</select>
 
-<textarea rows="4" placeholder="Address"></textarea>
+<label>Mobile Number</label>
+<input type="tel" id="mobile"
+placeholder="Enter 10 Digit Mobile Number"
+pattern="[0-9]{10}"
+maxlength="10"
+inputmode="numeric"
+required>
+
+<label>School Name</label>
+<input type="text" id="school"
+placeholder="Enter School Name" required>
+
+<label>Address</label>
+<textarea id="address"
+rows="4"
+placeholder="Enter Full Address"
+required></textarea>
+
+<label>Message (Optional)</label>
+<textarea id="message"
+rows="3"
+placeholder="Any other information"></textarea>
 
 <button type="submit">
 Submit Admission
@@ -92,7 +175,58 @@ Submit Admission
 
 </form>
 
+<p class="note">
+Please ask your parent or guardian to review the application.
+After clicking Submit, WhatsApp will open. Review the details
+before sending the application.
+</p>
+
+<a href="index.html" class="back">
+⬅ Back to Home
+</a>
+
 </div>
+
+<script>
+
+document.getElementById("admissionForm")
+.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const father = document.getElementById("father").value.trim();
+    const dob = document.getElementById("dob").value;
+    const studentClass = document.getElementById("studentClass").value;
+    const course = document.getElementById("course").value;
+    const mobile = document.getElementById("mobile").value;
+    const school = document.getElementById("school").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const message = document.getElementById("message").value.trim();
+
+    const whatsappMessage =
+`NEW ADMISSION APPLICATION
+STEPUP CLASSES
+
+Student Name: ${name}
+Father's Name: ${father}
+Date of Birth: ${dob}
+Class: ${studentClass}
+Course: ${course}
+Mobile Number: ${mobile}
+School Name: ${school}
+Address: ${address}
+Message: ${message}`;
+
+    const whatsappURL =
+    "https://wa.me/919771642586?text=" +
+    encodeURIComponent(whatsappMessage);
+
+    window.open(whatsappURL, "_blank");
+
+});
+
+</script>
 
 </body>
 </html>
