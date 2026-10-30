@@ -1,93 +1,205 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Login | StepUp Classes</title>
-
 <link rel="stylesheet" href="style.css">
 
 <style>
-body{
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#0d47a1,#42a5f5);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg,#0d47a1,#42a5f5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 15px;
+  box-sizing: border-box;
 }
-
-.login-box{
-background:#fff;
-padding:40px;
-width:350px;
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,.3);
-text-align:center;
+.login-box {
+  background: white;
+  padding: 35px;
+  width: 350px;
+  max-width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+  text-align: center;
+  box-sizing: border-box;
 }
-
-.login-box h2{
-color:#0d47a1;
-margin-bottom:25px;
+.login-box h2 { color: #0d47a1; }
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
 }
-
-.login-box input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:8px;
-font-size:16px;
-box-sizing:border-box;
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  background: #0d47a1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  cursor: pointer;
 }
-
-.login-box button{
-width:100%;
-padding:12px;
-background:#0d47a1;
-color:white;
-border:none;
-border-radius:8px;
-font-size:18px;
-cursor:pointer;
+.login-box button:disabled {
+  opacity: .6;
+  cursor: wait;
 }
-
-.login-box button:hover{
-background:#08306b;
+.back {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #0d47a1;
+  font-weight: bold;
 }
-
-.back{
-display:inline-block;
-margin-top:20px;
-text-decoration:none;
-color:#0d47a1;
-font-weight:bold;
+#message {
+  margin-top: 15px;
+  font-size: 14px;
+  overflow-wrap: anywhere;
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="login-box">
+  <h2>Student Login</h2>
 
-<h2>Student Login</h2>
+  <form id="loginForm">
+    <input
+      type="text"
+      id="studentId"
+      placeholder="Student ID"
+      autocomplete="username"
+      required
+    >
 
-<form>
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+      autocomplete="current-password"
+      required
+    >
 
-<input type="text" placeholder="Student ID" required>
+    <button type="submit" id="loginBtn">Login</button>
+  </form>
 
-<input type="password" placeholder="Password" required>
+  <p id="message" role="status"></p>
 
-<button type="submit">Login</button>
-
-</form>
-
-<a href="index.html" class="back">⬅ Back to Home</a>
-
+  <a href="index.html" class="back">⬅ Back to Home</a>
 </div>
+
+<script type="module">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAVDVE5dQtMNP0n5pP0T-aG2vL_CqM7dNA",
+  authDomain: "stepup-classes.firebaseapp.com",
+  projectId: "stepup-classes",
+  storageBucket: "stepup-classes.firebasestorage.app",
+  messagingSenderId: "341513224064",
+  appId: "1:341513224064:web:3581f99de8b7e6cf788b65",
+  measurementId: "G-62GWMYCGMB"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const form = document.getElementById("loginForm");
+const message = document.getElementById("message");
+const button = document.getElementById("loginBtn");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const studentId = document
+    .getElementById("studentId")
+    .value.trim().toUpperCase();
+
+  const password = document.getElementById("password").value;
+
+  if (!/^[A-Z0-9_-]{3,30}$/.test(studentId)) {
+    message.style.color = "red";
+    message.textContent = "कृपया सही Student ID डालें।";
+    return;
+  }
+
+  button.disabled = true;
+  message.style.color = "#333";
+  message.textContent = "लॉगिन हो रहा है...";
+
+  try {
+    // Student ID को Firebase के आंतरिक ईमेल में बदलें
+    const email = studentId.toLowerCase() + "@stepupclasses.com";
+
+    const credential = await signInWithEmailAndPassword(
+      auth, email, password
+    );
+
+    const studentRef = doc(
+      db, "students", credential.user.uid
+    );
+
+    const studentSnap = await getDoc(studentRef);
+
+    if (!studentSnap.exists()) {
+      await auth.signOut();
+      throw new Error("आपका विद्यार्थी खाता अभी सक्रिय नहीं है।");
+    }
+
+    const student = studentSnap.data();
+
+    if (
+      student.studentId !== studentId ||
+      student.active !== true
+    ) {
+      await auth.signOut();
+      throw new Error("आपका खाता सक्रिय नहीं है। संस्थान से संपर्क करें।");
+    }
+
+    message.style.color = "green";
+    message.textContent = "लॉगिन सफल!";
+
+    window.location.href = "student-dashboard.html";
+
+  } catch (error) {
+    console.error(error);
+    message.style.color = "red";
+
+    if (error.code === "auth/invalid-credential") {
+      message.textContent = "Student ID या Password गलत है।";
+    } else if (error.code === "auth/too-many-requests") {
+      message.textContent = "कई बार गलत प्रयास हुए हैं। बाद में कोशिश करें।";
+    } else {
+      message.textContent = error.message || "लॉगिन नहीं हो पाया।";
+    }
+  } finally {
+    button.disabled = false;
+  }
+});
+</script>
 
 </body>
 </html>
