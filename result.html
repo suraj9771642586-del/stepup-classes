@@ -1,114 +1,389 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Result | StepUp Classes</title>
-
 <link rel="stylesheet" href="style.css">
 
 <style>
-body{
-font-family:Arial,sans-serif;
-background:#f4f8ff;
-margin:0;
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f8ff;
+    margin: 0;
+    color: #222;
 }
 
-header{
-background:#0d47a1;
-color:white;
-padding:20px;
-text-align:center;
+header {
+    background: #0d47a1;
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-.container{
-max-width:500px;
-margin:50px auto;
-background:#fff;
-padding:30px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
+.container {
+    max-width: 650px;
+    margin: 35px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.12);
 }
 
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:6px;
+input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
 }
 
-button{
-width:100%;
-padding:12px;
-background:#0d47a1;
-color:white;
-border:none;
-border-radius:6px;
-font-size:16px;
-cursor:pointer;
+button, .btn {
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    background: #0d47a1;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-top: 10px;
 }
 
-button:hover{
-background:#08306b;
+button:hover, .btn:hover {
+    background: #08306b;
 }
 
-#result{
-margin-top:20px;
-font-size:18px;
-font-weight:bold;
-text-align:center;
+#message {
+    margin: 15px 0;
+    text-align: center;
+    font-weight: bold;
 }
 
-.btn{
-display:inline-block;
-margin-top:20px;
-padding:10px 20px;
-background:#0d47a1;
-color:#fff;
-text-decoration:none;
-border-radius:6px;
+.result-card {
+    background: #f7faff;
+    border: 1px solid #d7e5ff;
+    border-radius: 9px;
+    padding: 17px;
+    margin-top: 18px;
 }
+
+.result-card h3 {
+    color: #0d47a1;
+    margin-top: 0;
+}
+
+.result-row {
+    margin: 9px 0;
+    line-height: 1.5;
+}
+
+.status-pass {
+    color: green;
+    font-weight: bold;
+}
+
+.status-fail {
+    color: #d00000;
+    font-weight: bold;
+}
+
+.small-note {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.5;
+}
+
 </style>
-
 </head>
+
 <body>
 
 <header>
-<h1>Student Result</h1>
+    <h1>StepUp Classes</h1>
+    <h2>Student Result</h2>
 </header>
 
 <div class="container">
 
-<input type="text" id="roll" placeholder="Enter Roll Number">
+    <h2>अपना Result देखें</h2>
 
-<button onclick="checkResult()">Check Result</button>
+    <div id="loginBox" hidden>
+        <p>रिजल्ट देखने के लिए पहले विद्यार्थी अकाउंट से लॉगिन करें।</p>
+        <a href="login.html" class="btn">Student Login</a>
+    </div>
 
-<div id="result"></div>
+    <div id="resultBox" hidden>
+        <p id="studentInfo"></p>
 
-<div style="text-align:center;">
-<a href="index.html" class="btn">⬅ Back to Home</a>
+        <input
+            type="text"
+            id="roll"
+            placeholder="अपना Roll Number डालें"
+            autocomplete="off"
+        >
+
+        <button id="checkBtn">Check Result</button>
+
+        <div id="message"></div>
+        <div id="result"></div>
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+        <a href="student-dashboard.html" class="btn">Student Dashboard</a>
+        <a href="index.html" class="btn">Back to Home</a>
+    </div>
+
+    <p class="small-note">
+        सुरक्षा के लिए केवल लॉगिन किए हुए विद्यार्थी को उसका अपना रिजल्ट दिखाया जाता है।
+    </p>
+
 </div>
 
-</div>
+<script type="module">
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 
-<script>
-function checkResult(){
+import { 
+    getAuth,
+    onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
-const roll=document.getElementById("roll").value;
-const result=document.getElementById("result");
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    collection,
+    query,
+    where,
+    getDocs
+} from
+"https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-if(roll=="1001"){
-result.innerHTML="✅ Suraj Kumar<br>Percentage: 92%";
-}
-else if(roll=="1002"){
-result.innerHTML="✅ Rahul Kumar<br>Percentage: 88%";
-}
-else{
-result.innerHTML="❌ Result Not Found";
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyAVDVE5dQtMNP0n5pP0T-aG2vL_CqM7dNA",
+    authDomain: "stepup-classes.firebaseapp.com",
+    projectId: "stepup-classes",
+    storageBucket: "stepup-classes.firebasestorage.app",
+    messagingSenderId: "341513224064",
+    appId: "1:341513224064:web:3581f99de8b7e6cf788b65",
+    measurementId: "G-62GWMYCGMB"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const loginBox = document.getElementById("loginBox");
+const resultBox = document.getElementById("resultBox");
+const rollInput = document.getElementById("roll");
+const checkBtn = document.getElementById("checkBtn");
+const message = document.getElementById("message");
+const resultDiv = document.getElementById("result");
+const studentInfo = document.getElementById("studentInfo");
+
+let currentUser = null;
+let currentStudent = null;
+
+function showMessage(text, color = "#333") {
+    message.textContent = text;
+    message.style.color = color;
 }
 
+function getGrade(percentage) {
+    if (percentage >= 90) return "A+";
+    if (percentage >= 80) return "A";
+    if (percentage >= 70) return "B";
+    if (percentage >= 60) return "C";
+    if (percentage >= 45) return "D";
+    if (percentage >= 33) return "E";
+    return "F";
 }
+
+function formatDate(value) {
+    if (!value) return "उपलब्ध नहीं";
+
+    if (value.toDate) {
+        return value.toDate().toLocaleDateString("hi-IN");
+    }
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) {
+        return String(value);
+    }
+
+    return date.toLocaleDateString("hi-IN");
+}
+
+function addRow(parent, label, value) {
+    const row = document.createElement("p");
+    row.className = "result-row";
+
+    const strong = document.createElement("strong");
+    strong.textContent = label + ": ";
+
+    const span = document.createElement("span");
+    span.textContent = value;
+
+    row.append(strong, span);
+    parent.appendChild(row);
+}
+
+onAuthStateChanged(auth, async (user) => {
+    currentUser = user;
+
+    if (!user) {
+        loginBox.hidden = false;
+        resultBox.hidden = true;
+        return;
+    }
+
+    try {
+        const profileRef = doc(db, "students", user.uid);
+        const profileSnap = await getDoc(profileRef);
+
+        if (!profileSnap.exists()) {
+            showMessage("Student Profile नहीं मिला। Admin से संपर्क करें।", "red");
+            resultBox.hidden = false;
+            loginBox.hidden = true;
+            checkBtn.disabled = true;
+            return;
+        }
+
+        currentStudent = profileSnap.data();
+
+        if (currentStudent.active === false) {
+            showMessage("आपका Student Account बंद है। Admin से संपर्क करें।", "red");
+            resultBox.hidden = false;
+            loginBox.hidden = true;
+            checkBtn.disabled = true;
+            return;
+        }
+
+        loginBox.hidden = true;
+        resultBox.hidden = false;
+
+        studentInfo.textContent =
+            "लॉगिन विद्यार्थी: " + (currentStudent.name || "Student");
+
+    } catch (error) {
+        console.error(error);
+        showMessage("Profile लोड नहीं हुआ। कृपया दोबारा प्रयास करें।", "red");
+    }
+});
+
+checkBtn.addEventListener("click", async () => {
+    if (!currentUser || !currentStudent) {
+        showMessage("पहले Student Login करें।", "red");
+        return;
+    }
+
+    const enteredRoll = rollInput.value.trim().toLowerCase();
+    const actualRoll = String(currentStudent.studentId || "")
+        .trim()
+        .toLowerCase();
+
+    resultDiv.replaceChildren();
+
+    if (!enteredRoll) {
+        showMessage("कृपया Roll Number डालें।", "red");
+        return;
+    }
+
+    if (!actualRoll || enteredRoll !== actualRoll) {
+        showMessage("यह Roll Number आपके अकाउंट से मेल नहीं खाता।", "red");
+        return;
+    }
+
+    checkBtn.disabled = true;
+    showMessage("Result लोड हो रहा है...");
+
+    try {
+        const resultsQuery = query(
+            collection(db, "results"),
+            where("studentUid", "==", currentUser.uid)
+        );
+
+        const snapshot = await getDocs(resultsQuery);
+
+        if (snapshot.empty) {
+            showMessage("अभी आपका कोई Result उपलब्ध नहीं है।", "#d97706");
+            return;
+        }
+
+        showMessage("आपका Result सफलतापूर्वक मिल गया।", "green");
+
+        const heading = document.createElement("h3");
+        heading.textContent = "विद्यार्थी: " + (currentStudent.name || "Student");
+        resultDiv.appendChild(heading);
+
+        addRow(resultDiv, "Roll Number", currentStudent.studentId || "—");
+        addRow(resultDiv, "Class", currentStudent.class || "—");
+
+        snapshot.forEach((resultDoc) => {
+            const data = resultDoc.data();
+
+            const marks = Number(data.marks);
+            const total = Number(data.total);
+
+            const percentage = Number.isFinite(marks) &&
+                Number.isFinite(total) && total > 0
+                ? (marks / total) * 100
+                : 0;
+
+            const savedPercentage = Number(data.percentage);
+            const finalPercentage =
+                Number.isFinite(savedPercentage) && data.percentage !== undefined
+                ? savedPercentage
+                : percentage;
+
+            const grade = data.grade || getGrade(finalPercentage);
+            const status = data.status ||
+                (finalPercentage >= 33 ? "Pass" : "Fail");
+
+            const card = document.createElement("div");
+            card.className = "result-card";
+
+            const title = document.createElement("h3");
+            title.textContent = data.exam || "Exam Result";
+            card.appendChild(title);
+
+            addRow(card, "Subject", data.subject || "—");
+            addRow(card, "Exam Date", formatDate(data.resultDate));
+            addRow(card, "Marks", `${data.marks ?? "—"} / ${data.total ?? "—"}`);
+            addRow(card, "Percentage", finalPercentage.toFixed(2) + "%");
+            addRow(card, "Grade", grade);
+
+            const statusRow = document.createElement("p");
+            statusRow.className = "result-row " +
+                (status === "Pass" ? "status-pass" : "status-fail");
+            statusRow.textContent = "Result: " + status;
+
+            card.appendChild(statusRow);
+            resultDiv.appendChild(card);
+        });
+
+    } catch (error) {
+        console.error(error);
+        showMessage(
+            "Result लोड नहीं हुआ। Firebase Rules और इंटरनेट कनेक्शन जाँचें।",
+            "red"
+        );
+    } finally {
+        checkBtn.disabled = false;
+    }
+});
+
 </script>
 
 </body>
