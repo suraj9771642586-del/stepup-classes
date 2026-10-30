@@ -5,401 +5,421 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Admin Dashboard | StepUp Classes</title>
-
 <style>
 body{margin:0;font-family:Arial;background:#f1f5f9;color:#222}
-header{background:#0d47a1;color:white;padding:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+header{background:#0d47a1;color:white;padding:18px;display:flex;justify-content:space-between;align-items:center}
 main{max-width:900px;margin:25px auto;padding:15px}
 .card{background:white;padding:22px;margin-bottom:20px;border-radius:12px;box-shadow:0 3px 12px #0001}
 h2,h3{color:#0d47a1}
 input,select{width:100%;padding:12px;margin:8px 0 15px;border:1px solid #ccc;border-radius:7px;box-sizing:border-box;font-size:15px}
 button{padding:11px 17px;background:#0d47a1;color:white;border:0;border-radius:7px;cursor:pointer;margin:3px}
-button:disabled{opacity:.5}
-.logout{background:#e53935}
-.status{font-size:14px;overflow-wrap:anywhere}
-.item{padding:12px 0;border-bottom:1px solid #ddd}
+.logout,.delete{background:#e53935}
 .hidden{display:none}
+.item{padding:12px 0;border-bottom:1px solid #ddd;overflow-wrap:anywhere}
+.status{font-size:14px}
 </style>
 </head>
-
 <body>
 <header>
-  <h2 style="color:white;margin:0">StepUp Classes – Admin</h2>
-  <button id="logout" class="logout hidden">Logout</button>
+<h2 style="color:white;margin:0">StepUp Classes – Admin</h2>
+<button id="logout" class="logout hidden">Logout</button>
 </header>
 
 <main>
 <section id="loginBox" class="card">
-  <h2>Admin Login</h2>
-  <form id="adminLogin">
-    <input id="adminEmail" type="email" placeholder="Admin Email" required>
-    <input id="adminPassword" type="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
-  <p id="loginMessage" class="status"></p>
+<h2>Admin Login</h2>
+<form id="adminLogin">
+<input id="adminEmail" type="email" placeholder="Admin Email" required>
+<input id="adminPassword" type="password" placeholder="Password" required>
+<button type="submit">Login</button>
+</form>
+<p id="loginMessage" class="status"></p>
 </section>
 
 <section id="panel" class="hidden">
-  <div class="card">
-    <h2>Admin Dashboard</h2>
-    <p>स्वागत है! यहाँ से आप विद्यार्थियों को मैनेज कर सकते हैं।</p>
-    <p id="adminInfo"></p>
-  </div>
+<div class="card">
+<h2>Admin Dashboard</h2>
+<p>स्वागत है! यहाँ से आप विद्यार्थियों को मैनेज कर सकते हैं।</p>
+<p id="adminInfo"></p>
+</div>
 
-  <div class="card">
-    <h3>नया विद्यार्थी बनाएँ</h3>
-    <form id="studentForm">
-      <input id="studentName" placeholder="विद्यार्थी का नाम" required>
-      <input id="studentId" placeholder="Student ID जैसे STU001" required>
-      <select id="studentClass" required>
-        <option value="">कक्षा चुनें</option>
-        <option value="6">Class 6</option>
-        <option value="7">Class 7</option>
-        <option value="8">Class 8</option>
-        <option value="9">Class 9</option>
-        <option value="10">Class 10</option>
-        <option value="11">Class 11</option>
-        <option value="12">Class 12</option>
-      </select>
-      <input id="studentPassword" type="password" placeholder="नया Password (कम से कम 8 अक्षर)" minlength="8" required>
-      <button type="submit">विद्यार्थी का खाता बनाएँ</button>
-    </form>
-    <p id="studentMessage" class="status"></p>
-  </div>
+<div class="card">
+<h3>नया विद्यार्थी बनाएँ</h3>
+<form id="studentForm">
+<input id="studentName" placeholder="विद्यार्थी का नाम" required>
+<input id="studentId" placeholder="Student ID जैसे STU001" required>
+<select id="studentClass" required>
+<option value="">कक्षा चुनें</option>
+<option value="6">Class 6</option><option value="7">Class 7</option>
+<option value="8">Class 8</option><option value="9">Class 9</option>
+<option value="10">Class 10</option><option value="11">Class 11</option>
+<option value="12">Class 12</option>
+</select>
+<input id="studentPassword" type="password" placeholder="नया Password (कम से कम 8 अक्षर)" minlength="8" required>
+<button type="submit">विद्यार्थी का खाता बनाएँ</button>
+</form>
+<p id="studentMessage" class="status"></p>
+</div>
 
-  <div class="card">
-    <h3>विद्यार्थियों की सूची</h3>
-    <button id="loadStudents">सूची दिखाएँ</button>
-    <div id="studentsList"></div>
-  </div>
+<div class="card">
+<h3>विद्यार्थियों की सूची</h3>
+<button id="loadStudents">सूची दिखाएँ</button>
+<div id="studentsList"></div>
+</div>
 
-  <div class="card">
-    <h3>Notes / PDF जोड़ें</h3>
-    <form id="notesForm">
-      <input id="noteTitle" placeholder="Notes का नाम" required>
-      <select id="noteClass" required>
-        <option value="">कक्षा चुनें</option>
-        <option value="6">Class 6</option>
-        <option value="7">Class 7</option>
-        <option value="8">Class 8</option>
-        <option value="9">Class 9</option>
-        <option value="10">Class 10</option>
-        <option value="11">Class 11</option>
-        <option value="12">Class 12</option>
-      </select>
-      <input id="noteUrl" type="url" placeholder="PDF का लिंक" required>
-      <button type="submit">Notes जोड़ें</button>
-    </form>
-    <p id="notesMessage" class="status"></p>
-  </div>
+<div class="card">
+<h3>Notes / PDF जोड़ें</h3>
+<form id="notesForm">
+<input id="noteTitle" placeholder="Notes का नाम" required>
+<select id="noteClass" required>
+<option value="">कक्षा चुनें</option>
+<option value="6">Class 6</option><option value="7">Class 7</option>
+<option value="8">Class 8</option><option value="9">Class 9</option>
+<option value="10">Class 10</option><option value="11">Class 11</option>
+<option value="12">Class 12</option>
+</select>
+<input id="noteUrl" type="url" placeholder="PDF का लिंक" required>
+<button type="submit">Notes जोड़ें</button>
+</form>
+<p id="notesMessage" class="status"></p>
+</div>
 
-  <div class="card">
-    <h3>Result जोड़ें</h3>
-    <form id="resultForm">
-      <input id="resultStudentId" placeholder="Student ID" required>
-      <input id="exam" placeholder="परीक्षा का नाम" required>
-      <input id="subject" placeholder="विषय" required>
-      <input id="marks" type="number" min="0" placeholder="प्राप्त अंक" required>
-      <input id="total" type="number" min="1" placeholder="कुल अंक" required>
-      <button type="submit">Result जोड़ें</button>
-    </form>
-    <p id="resultMessage" class="status"></p>
-  </div>
+<div class="card">
+<h3>विद्यार्थी का Result जोड़ें / Edit करें</h3>
+<form id="resultForm">
+<input id="resultStudentId" placeholder="Student ID" required>
+<input id="exam" placeholder="परीक्षा का नाम" required>
+<label>परीक्षा की तारीख</label>
+<input id="resultDate" type="date" required>
+<input id="subject" placeholder="विषय" required>
+<input id="marks" type="number" min="0" placeholder="प्राप्त अंक" required>
+<input id="total" type="number" min="1" placeholder="कुल अंक" required>
+<button id="saveResult" type="submit">Result जोड़ें</button>
+<button id="cancelEdit" type="button" class="hidden">Edit रद्द करें</button>
+</form>
+<p id="resultMessage" class="status"></p>
+</div>
+
+<div class="card">
+<h3>सभी Results</h3>
+<button id="loadResults">Results दिखाएँ</button>
+<div id="resultsList"></div>
+</div>
 </section>
 </main>
 
 <script type="module">
-import {initializeApp, deleteApp}
+import {initializeApp,deleteApp}
 from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 
 import {
-  getAuth, signInWithEmailAndPassword, signOut,
-  onAuthStateChanged, createUserWithEmailAndPassword
+getAuth,signInWithEmailAndPassword,signOut,
+onAuthStateChanged,createUserWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 import {
-  getFirestore, doc, getDoc, setDoc, getDocs,
-  collection, query, where, addDoc, updateDoc
+getFirestore,doc,getDoc,setDoc,getDocs,
+collection,query,where,addDoc,updateDoc,deleteDoc
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAVDVE5dQtMNP0n5pP0T-aG2vL_CqM7dNA",
-  authDomain: "stepup-classes.firebaseapp.com",
-  projectId: "stepup-classes",
-  storageBucket: "stepup-classes.firebasestorage.app",
-  messagingSenderId: "341513224064",
-  appId: "1:341513224064:web:3581f99de8b7e6cf788b65",
-  measurementId: "G-62GWMYCGMB"
+apiKey:"AIzaSyAVDVE5dQtMNP0n5pP0T-aG2vL_CqM7dNA",
+authDomain:"stepup-classes.firebaseapp.com",
+projectId:"stepup-classes",
+storageBucket:"stepup-classes.firebasestorage.app",
+messagingSenderId:"341513224064",
+appId:"1:341513224064:web:3581f99de8b7e6cf788b65",
+measurementId:"G-62GWMYCGMB"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const $ = id => document.getElementById(id);
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+const $=id=>document.getElementById(id);
 
-function message(id, text, ok=false) {
-  $(id).textContent = text;
-  $(id).style.color = ok ? "green" : "red";
+let editingResultId=null;
+
+function message(id,text,ok=false){
+$(id).textContent=text;
+$(id).style.color=ok?"green":"red";
 }
 
-async function checkAdmin(user) {
-  const snap = await getDoc(doc(db, "admins", user.uid));
-  return snap.exists() && snap.data().role === "admin";
+async function checkAdmin(user){
+const snap=await getDoc(doc(db,"admins",user.uid));
+return snap.exists() && snap.data().role==="admin";
 }
 
-onAuthStateChanged(auth, async user => {
-  if (!user) {
-    $("loginBox").classList.remove("hidden");
-    $("panel").classList.add("hidden");
-    $("logout").classList.add("hidden");
-    return;
-  }
-
-  try {
-    if (!await checkAdmin(user)) {
-      await signOut(auth);
-      message("loginMessage", "इस खाते को Admin की अनुमति नहीं है।");
-      return;
-    }
-
-    $("loginBox").classList.add("hidden");
-    $("panel").classList.remove("hidden");
-    $("logout").classList.remove("hidden");
-    $("adminInfo").textContent = "Admin: " + user.email;
-  } catch (error) {
-    message("loginMessage", "Admin की जाँच नहीं हो सकी।");
-  }
-});
-
-$("adminLogin").addEventListener("submit", async e => {
-  e.preventDefault();
-  try {
-    await signInWithEmailAndPassword(
-      auth, $("adminEmail").value.trim(), $("adminPassword").value
-    );
-    message("loginMessage", "लॉगिन सफल।", true);
-  } catch (error) {
-    message("loginMessage", "ईमेल या पासवर्ड गलत है।");
-  }
-});
-
-$("logout").addEventListener("click", async () => {
-  await signOut(auth);
-});
-
-async function requireAdmin() {
-  if (!auth.currentUser || !await checkAdmin(auth.currentUser)) {
-    throw new Error("Admin अनुमति नहीं मिली।");
-  }
+async function requireAdmin(){
+if(!auth.currentUser || !await checkAdmin(auth.currentUser)){
+throw new Error("Admin अनुमति नहीं मिली।");
+}
 }
 
-// नया विद्यार्थी बनाएँ
-$("studentForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const btn = e.submitter;
-  btn.disabled = true;
-  let secondaryApp;
-
-  try {
-    await requireAdmin();
-
-    const name = $("studentName").value.trim();
-    const studentId = $("studentId").value.trim().toUpperCase();
-    const studentClass = $("studentClass").value;
-    const password = $("studentPassword").value;
-
-    if (!/^[A-Z0-9_-]{3,30}$/.test(studentId)) {
-      throw new Error("Student ID में 3-30 अक्षर, अंक, _ या - ही रखें।");
-    }
-    if (password.length < 8) {
-      throw new Error("Password कम से कम 8 अक्षर का होना चाहिए।");
-    }
-
-    const existing = await getDocs(query(
-      collection(db, "students"),
-      where("studentId", "==", studentId)
-    ));
-    if (!existing.empty) {
-      throw new Error("यह Student ID पहले से मौजूद है।");
-    }
-
-    const email = studentId.toLowerCase() + "@stepupclasses.com";
-    secondaryApp = initializeApp(firebaseConfig, "student-creator");
-    const secondaryAuth = getAuth(secondaryApp);
-
-    const credential = await createUserWithEmailAndPassword(
-      secondaryAuth, email, password
-    );
-    const uid = credential.user.uid;
-
-    await setDoc(doc(db, "students", uid), {
-      name, studentId, class: studentClass,
-      active: true,
-      createdAt: new Date().toISOString()
-    });
-
-    await signOut(secondaryAuth);
-    $("studentForm").reset();
-    message("studentMessage", "विद्यार्थी का खाता बन गया। ID: " + studentId, true);
-
-  } catch (error) {
-    message("studentMessage", error.message || "खाता नहीं बन पाया।");
-  } finally {
-    if (secondaryApp) await deleteApp(secondaryApp).catch(() => {});
-    btn.disabled = false;
-  }
+onAuthStateChanged(auth,async user=>{
+if(!user){
+$("loginBox").classList.remove("hidden");
+$("panel").classList.add("hidden");
+$("logout").classList.add("hidden");
+return;
+}
+try{
+if(!await checkAdmin(user)){
+await signOut(auth);
+message("loginMessage","इस खाते को Admin की अनुमति नहीं है।");
+return;
+}
+$("loginBox").classList.add("hidden");
+$("panel").classList.remove("hidden");
+$("logout").classList.remove("hidden");
+$("adminInfo").textContent="Admin: "+user.email;
+}catch(error){
+message("loginMessage","Admin की जाँच नहीं हो सकी।");
+}
 });
 
-// विद्यार्थियों की सूची, Edit और Active/Inactive
-$("loadStudents").addEventListener("click", loadStudents);
+$("adminLogin").addEventListener("submit",async e=>{
+e.preventDefault();
+try{
+await signInWithEmailAndPassword(auth,$("adminEmail").value.trim(),$("adminPassword").value);
+message("loginMessage","लॉगिन सफल।",true);
+}catch(error){
+message("loginMessage","ईमेल या पासवर्ड गलत है।");
+}
+});
 
-async function loadStudents() {
-  try {
-    await requireAdmin();
-    const snap = await getDocs(collection(db, "students"));
-    const list = $("studentsList");
-    list.replaceChildren();
+$("logout").addEventListener("click",()=>signOut(auth));
 
-    if (snap.empty) {
-      list.textContent = "अभी कोई विद्यार्थी नहीं है।";
-      return;
-    }
+// विद्यार्थी का खाता बनाएँ
+$("studentForm").addEventListener("submit",async e=>{
+e.preventDefault();
+const btn=e.submitter;
+btn.disabled=true;
+let secondaryApp;
+try{
+await requireAdmin();
+const name=$("studentName").value.trim();
+const studentId=$("studentId").value.trim().toUpperCase();
+const studentClass=$("studentClass").value;
+const password=$("studentPassword").value;
 
-    snap.forEach(d => {
-      const s = d.data();
-      const item = document.createElement("div");
-      item.className = "item";
+if(!/^[A-Z0-9_-]{3,30}$/.test(studentId))
+throw new Error("Student ID में 3-30 अक्षर, अंक, _ या - ही रखें।");
+if(password.length<8) throw new Error("Password कम से कम 8 अक्षर का होना चाहिए।");
 
-      const info = document.createElement("p");
-      info.textContent =
-        `${s.name || "नाम नहीं"} | ${s.studentId || "ID नहीं"} | कक्षा ${s.class || "-"} | ${s.active === true ? "चालू" : "बंद"}`;
+const existing=await getDocs(query(collection(db,"students"),where("studentId","==",studentId)));
+if(!existing.empty) throw new Error("यह Student ID पहले से मौजूद है।");
 
-      const editBtn = document.createElement("button");
-      editBtn.type = "button";
-      editBtn.textContent = "Edit";
+secondaryApp=initializeApp(firebaseConfig,"student-creator");
+const secondaryAuth=getAuth(secondaryApp);
+const email=studentId.toLowerCase()+"@stepupclasses.com";
+const credential=await createUserWithEmailAndPassword(secondaryAuth,email,password);
 
-      editBtn.addEventListener("click", async () => {
-        const name = prompt("विद्यार्थी का नाम बदलें:", s.name || "");
-        if (name === null) return;
-        if (!name.trim()) {
-          alert("नाम खाली नहीं हो सकता।");
-          return;
-        }
+await setDoc(doc(db,"students",credential.user.uid),{
+name,studentId,class:studentClass,active:true,
+createdAt:new Date().toISOString()
+});
+await signOut(secondaryAuth);
+$("studentForm").reset();
+message("studentMessage","विद्यार्थी का खाता बन गया। ID: "+studentId,true);
+}catch(error){
+message("studentMessage",error.message);
+}finally{
+if(secondaryApp) await deleteApp(secondaryApp).catch(()=>{});
+btn.disabled=false;
+}
+});
 
-        const studentClass = prompt("नई कक्षा लिखें (6 से 12):", String(s.class || ""));
-        if (studentClass === null) return;
-        const cleanedClass = studentClass.trim();
+// विद्यार्थियों की सूची
+$("loadStudents").addEventListener("click",loadStudents);
 
-        if (!["6","7","8","9","10","11","12"].includes(cleanedClass)) {
-          alert("कक्षा 6 से 12 के बीच लिखें।");
-          return;
-        }
+async function loadStudents(){
+try{
+await requireAdmin();
+const snap=await getDocs(collection(db,"students"));
+const list=$("studentsList");
+list.replaceChildren();
+if(snap.empty){list.textContent="अभी कोई विद्यार्थी नहीं है।";return;}
 
-        try {
-          await requireAdmin();
-          await updateDoc(doc(db, "students", d.id), {
-            name: name.trim(),
-            class: cleanedClass
-          });
-          alert("विद्यार्थी की जानकारी अपडेट हो गई।");
-          await loadStudents();
-        } catch (error) {
-          alert(error.message || "अपडेट नहीं हो पाया।");
-        }
-      });
+snap.forEach(d=>{
+const s=d.data();
+const item=document.createElement("div");
+item.className="item";
+const info=document.createElement("p");
+info.textContent=`${s.name} | ${s.studentId} | कक्षा ${s.class} | ${s.active===true?"चालू":"बंद"}`;
 
-      const statusBtn = document.createElement("button");
-      statusBtn.textContent = s.active === true ? "Inactive करें" : "Active करें";
-      statusBtn.style.background = s.active === true ? "#e53935" : "#2e7d32";
+const edit=document.createElement("button");
+edit.textContent="Edit";
+edit.onclick=async()=>{
+const name=prompt("विद्यार्थी का नाम:",s.name||"");
+if(name===null)return;
+const cls=prompt("कक्षा 6 से 12:",String(s.class||""));
+if(cls===null)return;
+if(!name.trim() || !["6","7","8","9","10","11","12"].includes(cls.trim())){
+alert("नाम या कक्षा सही नहीं है।");return;
+}
+try{
+await requireAdmin();
+await updateDoc(doc(db,"students",d.id),{name:name.trim(),class:cls.trim()});
+alert("जानकारी अपडेट हो गई।");
+loadStudents();
+}catch(err){alert(err.message);}
+};
 
-      statusBtn.addEventListener("click", async () => {
-        const nextStatus = s.active !== true;
-        if (!confirm(`${s.name || "इस विद्यार्थी"} का अकाउंट ${nextStatus ? "चालू" : "बंद"} करना चाहते हैं?`)) return;
-
-        try {
-          await requireAdmin();
-          await updateDoc(doc(db, "students", d.id), { active: nextStatus });
-          alert("विद्यार्थी की स्थिति अपडेट हो गई।");
-          await loadStudents();
-        } catch (error) {
-          alert(error.message || "स्थिति अपडेट नहीं हो सकी।");
-        }
-      });
-
-      item.append(info, editBtn, statusBtn);
-      list.appendChild(item);
-    });
-
-  } catch (error) {
-    message("studentMessage", error.message || "सूची लोड नहीं हो सकी।");
-  }
+const status=document.createElement("button");
+status.textContent=s.active===true?"Inactive करें":"Active करें";
+status.onclick=async()=>{
+try{
+await requireAdmin();
+await updateDoc(doc(db,"students",d.id),{active:s.active!==true});
+loadStudents();
+}catch(err){alert(err.message);}
+};
+item.append(info,edit,status);
+list.appendChild(item);
+});
+}catch(error){message("studentMessage",error.message);}
 }
 
 // Notes जोड़ें
-$("notesForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  try {
-    await requireAdmin();
-    const url = new URL($("noteUrl").value.trim());
-    if (url.protocol !== "https:") {
-      throw new Error("कृपया सुरक्षित HTTPS लिंक दें।");
-    }
-
-    await addDoc(collection(db, "notes"), {
-      title: $("noteTitle").value.trim(),
-      class: $("noteClass").value,
-      url: url.href,
-      published: true,
-      createdAt: new Date().toISOString()
-    });
-
-    $("notesForm").reset();
-    message("notesMessage", "Notes सफलतापूर्वक जोड़ दिए गए।", true);
-  } catch (error) {
-    message("notesMessage", error.message);
-  }
+$("notesForm").addEventListener("submit",async e=>{
+e.preventDefault();
+try{
+await requireAdmin();
+const url=new URL($("noteUrl").value.trim());
+if(url.protocol!=="https:")throw new Error("कृपया सुरक्षित HTTPS लिंक दें।");
+await addDoc(collection(db,"notes"),{
+title:$("noteTitle").value.trim(),
+class:$("noteClass").value,url:url.href,
+published:true,createdAt:new Date().toISOString()
+});
+$("notesForm").reset();
+message("notesMessage","Notes सफलतापूर्वक जोड़ दिए गए।",true);
+}catch(error){message("notesMessage",error.message);}
 });
 
-// Result जोड़ें
-$("resultForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  try {
-    await requireAdmin();
+// प्रतिशत और Grade निकालें
+function calculateResult(marks,total){
+const percentage=(marks/total)*100;
+let grade;
+if(percentage>=90)grade="A+";
+else if(percentage>=80)grade="A";
+else if(percentage>=70)grade="B";
+else if(percentage>=60)grade="C";
+else if(percentage>=45)grade="D";
+else if(percentage>=33)grade="E";
+else grade="F";
+return {
+percentage:Number(percentage.toFixed(2)),
+grade,
+status:percentage>=33?"Pass":"Fail"
+};
+}
 
-    const studentId = $("resultStudentId").value.trim().toUpperCase();
-    const marks = Number($("marks").value);
-    const total = Number($("total").value);
+// Result जोड़ें या Update करें
+$("resultForm").addEventListener("submit",async e=>{
+e.preventDefault();
+try{
+await requireAdmin();
+const studentId=$("resultStudentId").value.trim().toUpperCase();
+const marks=Number($("marks").value);
+const total=Number($("total").value);
+if(total<=0 || marks<0 || marks>total)
+throw new Error("प्राप्त अंक और कुल अंक सही भरें।");
 
-    if (total <= 0 || marks < 0 || marks > total) {
-      throw new Error("अंक सही तरीके से भरें।");
-    }
+const snap=await getDocs(query(collection(db,"students"),where("studentId","==",studentId)));
+if(snap.empty)throw new Error("यह Student ID नहीं मिली।");
+const studentDoc=snap.docs[0];
+const student=studentDoc.data();
+if(student.active!==true)throw new Error("इस विद्यार्थी का खाता बंद है।");
 
-    const snap = await getDocs(query(
-      collection(db, "students"),
-      where("studentId", "==", studentId)
-    ));
+const calculated=calculateResult(marks,total);
+const resultData={
+studentUid:studentDoc.id,
+studentId:student.studentId,
+studentName:student.name,
+exam:$("exam").value.trim(),
+resultDate:$("resultDate").value,
+subject:$("subject").value.trim(),
+marks,total,
+percentage:calculated.percentage,
+grade:calculated.grade,
+status:calculated.status,
+updatedAt:new Date().toISOString()
+};
 
-    if (snap.empty) throw new Error("यह Student ID नहीं मिली।");
-
-    const studentDoc = snap.docs[0];
-    if (studentDoc.data().active !== true) {
-      throw new Error("इस विद्यार्थी का खाता बंद है।");
-    }
-
-    await addDoc(collection(db, "results"), {
-      studentUid: studentDoc.id,
-      exam: $("exam").value.trim(),
-      subject: $("subject").value.trim(),
-      marks, total,
-      createdAt: new Date().toISOString()
-    });
-
-    $("resultForm").reset();
-    message("resultMessage", "Result सफलतापूर्वक जोड़ दिया गया।", true);
-  } catch (error) {
-    message("resultMessage", error.message);
-  }
+if(editingResultId){
+await updateDoc(doc(db,"results",editingResultId),resultData);
+message("resultMessage","Result अपडेट हो गया।",true);
+}else{
+resultData.createdAt=new Date().toISOString();
+await addDoc(collection(db,"results"),resultData);
+message("resultMessage","Result सफलतापूर्वक जोड़ दिया गया।",true);
+}
+resetResultForm();
+}catch(error){message("resultMessage",error.message);}
 });
+
+function resetResultForm(){
+editingResultId=null;
+$("resultForm").reset();
+$("saveResult").textContent="Result जोड़ें";
+$("cancelEdit").classList.add("hidden");
+}
+
+$("cancelEdit").addEventListener("click",resetResultForm);
+
+// सभी Results दिखाएँ
+$("loadResults").addEventListener("click",loadResults);
+
+async function loadResults(){
+try{
+await requireAdmin();
+const snap=await getDocs(collection(db,"results"));
+const list=$("resultsList");
+list.replaceChildren();
+if(snap.empty){list.textContent="अभी कोई Result नहीं है।";return;}
+
+snap.forEach(d=>{
+const r=d.data();
+const item=document.createElement("div");
+item.className="item";
+const info=document.createElement("p");
+info.textContent=
+`${r.studentName||"-"} (${r.studentId||"-"}) | ${r.exam||"-"} | ${r.subject||"-"} | ${r.marks??0}/${r.total??0} | ${r.percentage??"-"}% | Grade: ${r.grade||"-"} | ${r.status||"-"} | तारीख: ${r.resultDate||"-"}`;
+
+const edit=document.createElement("button");
+edit.textContent="Edit";
+edit.onclick=()=>{
+editingResultId=d.id;
+$("resultStudentId").value=r.studentId||"";
+$("exam").value=r.exam||"";
+$("resultDate").value=r.resultDate||"";
+$("subject").value=r.subject||"";
+$("marks").value=r.marks??"";
+$("total").value=r.total??"";
+$("saveResult").textContent="Result Update करें";
+$("cancelEdit").classList.remove("hidden");
+$("resultForm").scrollIntoView({behavior:"smooth"});
+};
+
+const del=document.createElement("button");
+del.textContent="Delete";
+del.className="delete";
+del.onclick=async()=>{
+if(!confirm("क्या यह Result हटाना चाहते हैं?"))return;
+try{
+await requireAdmin();
+await deleteDoc(doc(db,"results",d.id));
+message("resultMessage","Result हटा दिया गया।",true);
+loadResults();
+}catch(error){message("resultMessage",error.message);}
+};
+
+item.append(info,edit,del);
+list.appendChild(item);
+});
+}catch(error){message("resultMessage",error.message);}
+}
 </script>
 </body>
 </html>
