@@ -1,8 +1,4 @@
 
-/* =====================================
-   STEPUP CLASSES - MODERN WEBSITE DESIGN
-===================================== */
-
 * {
     margin: 0;
     padding: 0;
@@ -22,32 +18,32 @@ body {
     overflow-x: hidden;
 }
 
-/* =====================================
-   HEADER AND NAVIGATION
-===================================== */
-
 header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    min-height: 75px;
+    min-height: 76px;
     background: linear-gradient(110deg, #073477, #1259b5);
-    color: #ffffff;
+    color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 13px 6%;
+    padding: 12px 5%;
     z-index: 1000;
-    box-shadow: 0 4px 20px rgba(0, 25, 70, 0.22);
+    box-shadow: 0 4px 20px rgba(0,25,70,.2);
 }
 
 .logo {
-    font-size: 28px;
+    font-size: 27px;
     font-weight: bold;
-    color: #ffffff;
+    color: white;
     white-space: nowrap;
-    letter-spacing: 0.5px;
+}
+
+.logo i {
+    color: #ffcf40;
+    margin-right: 5px;
 }
 
 header nav {
@@ -55,103 +51,123 @@ header nav {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 7px;
+    gap: 4px;
 }
 
 header nav a,
 header nav a:link,
-header nav a:visited,
-header nav a:active {
+header nav a:visited {
     color: #ffffff !important;
     text-decoration: none !important;
-    margin-left: 10px;
-    padding: 9px 12px;
-    font-size: 15px;
+    padding: 8px 10px;
+    margin: 2px;
+    border-radius: 22px;
+    font-size: 14px;
     font-weight: bold;
-    border-radius: 20px;
-    transition: all 0.3s ease;
+    transition: .3s;
 }
 
 header nav a:hover,
 header nav a:focus {
     color: #073477 !important;
     background: #ffcf40;
-    text-decoration: none !important;
-    transform: translateY(-2px);
 }
-
-/* =====================================
-   HERO SECTION
-===================================== */
 
 .hero {
     min-height: 100vh;
+    padding: 130px 20px 65px;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background:
-        radial-gradient(circle at top right, rgba(255,255,255,0.18), transparent 35%),
-        linear-gradient(135deg, #073477, #1976d2, #42a5f5);
-    color: white;
+    justify-content: center;
     text-align: center;
-    padding: 125px 20px 60px;
-    position: relative;
+    color: white;
+    background:
+        radial-gradient(circle at 85% 15%, rgba(255,255,255,.2), transparent 30%),
+        linear-gradient(135deg, #073477, #1976d2, #42a5f5);
+}
+
+.hero-content {
+    max-width: 900px;
+}
+
+.hero-tag,
+.section-tag {
+    display: inline-block;
+    color: #ff9800;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.hero-tag {
+    color: #ffdf80;
+    padding: 8px 17px;
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 25px;
+    background: rgba(255,255,255,.1);
 }
 
 .hero h1 {
-    font-size: clamp(34px, 5vw, 58px);
-    font-weight: 800;
+    font-size: clamp(36px, 5vw, 60px);
     line-height: 1.2;
-    max-width: 950px;
-    text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    margin-top: 18px;
+    font-weight: 800;
+}
+
+.hero h1 span {
+    color: #ffcf40;
 }
 
 .hero p {
-    margin: 22px 0;
-    font-size: clamp(17px, 2vw, 22px);
-    max-width: 750px;
-    color: #edf6ff;
+    font-size: 23px;
+    margin: 18px 0;
+    color: #eaf4ff;
 }
 
 .hero-image {
     display: block;
-    width: 320px;
+    width: 300px;
     max-width: 90%;
-    margin: 25px auto;
-    border: 5px solid rgba(255,255,255,0.85);
+    margin: 30px auto 0;
+    border: 5px solid white;
     border-radius: 22px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-    transition: 0.4s;
+    box-shadow: 0 15px 35px rgba(0,0,0,.3);
+    transition: .3s;
 }
 
 .hero-image:hover {
-    transform: scale(1.04);
+    transform: scale(1.03);
 }
-
-/* =====================================
-   BUTTONS
-===================================== */
 
 .btn {
     display: inline-block;
-    padding: 13px 30px;
+    padding: 13px 27px;
     background: linear-gradient(135deg, #ffb300, #ff8f00);
-    color: #ffffff !important;
+    color: white !important;
     text-decoration: none !important;
     border-radius: 30px;
-    margin: 10px;
+    margin: 8px;
     font-weight: bold;
-    font-size: 16px;
-    border: none;
-    box-shadow: 0 6px 16px rgba(255,143,0,0.25);
-    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(255,143,0,.25);
+    transition: .3s;
 }
 
 .btn:hover {
-    background: linear-gradient(135deg, #ff9800, #e67e00);
-    transform: translateY(-4px);
-    box-shadow: 0 10px 22px rgba(255,143,0,0.35);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(255,143,0,.35);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid white;
+    box-shadow: none;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: #073477 !important;
 }
 
 .whatsapp {
@@ -162,74 +178,42 @@ header nav a:focus {
     background: #159447;
 }
 
-/* =====================================
-   ALL SECTIONS
-===================================== */
-
 section {
-    padding: 90px 8%;
+    padding: 85px 8%;
     scroll-margin-top: 85px;
+    text-align: center;
 }
 
 section h2 {
-    text-align: center;
     color: #0d47a1;
     font-size: clamp(27px, 4vw, 36px);
-    margin-bottom: 38px;
-    font-weight: 800;
-    position: relative;
+    margin-bottom: 35px;
+    line-height: 1.3;
 }
 
 section h2::after {
     content: "";
     display: block;
-    width: 75px;
+    width: 70px;
     height: 4px;
     margin: 12px auto 0;
     border-radius: 10px;
-    background: linear-gradient(90deg, #ff9800, #ffca28);
+    background: #ffb300;
 }
 
-/* =====================================
-   COURSE AND OTHER CARDS
-===================================== */
-
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 25px;
+.light-section {
+    background: linear-gradient(135deg, #eaf3ff, #ffffff);
 }
 
-.card {
-    background: #ffffff;
-    padding: 30px 25px;
+.about-content {
+    max-width: 850px;
+    margin: auto;
+    padding: 30px;
+    background: white;
     border-radius: 18px;
-    box-shadow: 0 7px 25px rgba(13,71,161,0.09);
-    text-align: center;
-    border: 1px solid #e7effb;
-    transition: all 0.35s ease;
+    box-shadow: 0 8px 25px rgba(13,71,161,.08);
+    font-size: 18px;
 }
-
-.card:hover {
-    transform: translateY(-9px);
-    box-shadow: 0 15px 35px rgba(13,71,161,0.16);
-    border-color: #90caf9;
-}
-
-.card h3 {
-    color: #0d47a1;
-    font-size: 22px;
-    margin-bottom: 12px;
-}
-
-.card p {
-    color: #526176;
-    line-height: 1.8;
-}
-
-/* =====================================
-   DIRECTOR SECTION
-===================================== */
 
 .director {
     display: flex;
@@ -239,19 +223,15 @@ section h2::after {
     padding: 85px 10%;
     flex-wrap: wrap;
     background: linear-gradient(135deg, #ffffff, #eaf3ff);
+    text-align: left;
 }
 
 .director-image img {
     width: 310px;
     max-width: 100%;
+    border: 5px solid white;
     border-radius: 22px;
-    border: 5px solid #ffffff;
-    box-shadow: 0 12px 30px rgba(0,0,0,0.17);
-    transition: 0.4s;
-}
-
-.director-image img:hover {
-    transform: scale(1.03);
+    box-shadow: 0 12px 30px rgba(0,0,0,.17);
 }
 
 .director-content {
@@ -259,161 +239,213 @@ section h2::after {
 }
 
 .director-content h2 {
-    color: #0d47a1;
     margin-bottom: 12px;
-    font-size: 30px;
+}
+
+.director-content h2::after {
+    margin-left: 0;
 }
 
 .director-content h3 {
     color: #263449;
-    margin-bottom: 20px;
     font-size: 27px;
+    margin-bottom: 15px;
 }
 
 .director-content p {
-    line-height: 1.9;
-    margin-bottom: 20px;
     color: #526176;
+    margin-bottom: 18px;
 }
 
 .director-content ul {
     list-style: none;
-    padding: 0;
 }
 
 .director-content li {
-    margin: 12px 0;
+    margin: 9px 0;
     font-size: 17px;
-    color: #34445a;
 }
 
-/* =====================================
-   CONTACT SECTION
-===================================== */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+    margin-top: 25px;
+}
+
+.card {
+    background: white;
+    padding: 30px 22px;
+    border-radius: 18px;
+    border: 1px solid #e7effb;
+    box-shadow: 0 7px 25px rgba(13,71,161,.09);
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(13,71,161,.16);
+}
+
+.card-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eaf3ff;
+    color: #1260b9;
+    font-size: 28px;
+}
+
+.card h3 {
+    color: #0d47a1;
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #526176;
+}
+
+.map-container {
+    max-width: 950px;
+    margin: 25px auto 0;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+    border: 5px solid white;
+}
 
 #contact {
-    text-align: center;
     background: linear-gradient(135deg, #eaf3ff, #ffffff);
 }
 
-#contact p {
-    margin: 10px 0;
-    font-size: 17px;
-    color: #34445a;
+.contact-card {
+    max-width: 650px;
+    margin: auto;
+    padding: 35px 25px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 28px rgba(13,71,161,.1);
 }
 
-/* =====================================
-   FOOTER
-===================================== */
+.contact-card p {
+    margin: 13px 0;
+    color: #34445a;
+    font-size: 16px;
+}
+
+.contact-card p i {
+    color: #1260b9;
+    width: 25px;
+}
+
+.contact-card .address {
+    line-height: 1.9;
+}
 
 footer {
     background: linear-gradient(110deg, #073477, #1259b5);
     color: white;
     text-align: center;
-    padding: 28px 15px;
-    line-height: 1.8;
+    padding: 30px 15px;
 }
 
-footer p {
-    margin: 5px 0;
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
 }
 
-/* =====================================
-   FLOATING WHATSAPP BUTTON
-===================================== */
+.footer-logo i {
+    color: #ffcf40;
+}
 
 .whatsapp-float {
     position: fixed;
     bottom: 22px;
     right: 22px;
-    width: 62px;
-    height: 62px;
+    width: 60px;
+    height: 60px;
     background: #25d366;
-    color: #ffffff !important;
+    color: white !important;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 31px;
     text-decoration: none !important;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    box-shadow: 0 6px 20px rgba(0,0,0,.25);
     z-index: 999;
-    transition: 0.3s;
+    transition: .3s;
 }
 
 .whatsapp-float:hover {
-    transform: scale(1.12);
-    background: #159447;
+    transform: scale(1.1);
 }
-
-/* =====================================
-   IMAGES
-===================================== */
 
 img {
     max-width: 100%;
 }
 
-/* =====================================
-   MOBILE RESPONSIVE DESIGN
-===================================== */
-
-@media (max-width: 900px) {
+/* TABLET */
+@media (max-width: 1050px) {
     header {
         padding: 12px 3%;
+    }
+
+    header nav a,
+    header nav a:link,
+    header nav a:visited {
+        font-size: 12px;
+        padding: 7px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    header {
+        position: relative;
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px 8px;
     }
 
     .logo {
         font-size: 24px;
     }
 
-    header nav a,
-    header nav a:link,
-    header nav a:visited {
-        margin: 3px;
-        padding: 7px 9px;
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 768px) {
-    header {
-        position: relative;
-        flex-direction: column;
-        padding: 14px 10px;
-        gap: 10px;
-    }
-
     header nav {
         justify-content: center;
-        margin-top: 5px;
-        gap: 3px;
+        gap: 2px;
     }
 
     header nav a,
     header nav a:link,
     header nav a:visited {
-        display: inline-block;
-        margin: 3px !important;
+        font-size: 12px;
         padding: 7px 9px;
-        font-size: 13px;
+        margin: 2px;
     }
 
     .hero {
         min-height: 80vh;
-        padding: 65px 18px;
+        padding: 65px 15px;
     }
 
     .hero h1 {
-        font-size: 35px;
+        font-size: 36px;
     }
 
     .hero p {
-        font-size: 17px;
+        font-size: 18px;
     }
 
     section {
-        padding: 65px 6%;
+        padding: 60px 6%;
     }
 
     .director {
@@ -421,16 +453,20 @@ img {
         padding: 60px 6%;
     }
 
+    .director-content h2::after {
+        margin-left: auto;
+    }
+
     .director-image img {
         width: 230px;
     }
 
-    .director-content h3 {
-        font-size: 23px;
-    }
-
     .cards {
         grid-template-columns: 1fr;
+    }
+
+    .map-container iframe {
+        height: 320px;
     }
 }
 
@@ -439,19 +475,16 @@ img {
         font-size: 21px;
     }
 
-    header nav a,
-    header nav a:link,
-    header nav a:visited {
-        font-size: 12px;
-        padding: 6px 8px;
-    }
-
     .hero h1 {
         font-size: 30px;
     }
 
+    .hero-tag {
+        font-size: 11px;
+    }
+
     .btn {
-        padding: 11px 22px;
+        padding: 11px 20px;
         font-size: 14px;
     }
 
