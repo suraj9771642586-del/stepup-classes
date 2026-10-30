@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard | StepUp Classes</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f1f5f9;
+}
+header {
+  background: #0d47a1;
+  color: white;
+  padding: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+header h2 { margin: 0; }
+button {
+  background: #e53935;
+  color: white;
+  border: 0;
+  padding: 10px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+main {
+  max-width: 900px;
+  margin: 25px auto;
+  padding: 15px;
+}
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+.card h3 { color: #0d47a1; margin-top: 0; }
+.item {
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+.item:last-child { border-bottom: 0; }
+a { color: #0d47a1; }
+#status { color: #555; }
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>StepUp Classes</h2>
+  <button id="logoutBtn">Logout</button>
+</header>
+
+<main>
+  <div class="card">
+    <h3>Student Dashboard</h3>
+    <p id="status">जानकारी लोड हो रही है...</p>
+    <div id="profile"></div>
+  </div>
+
+  <div class="card">
+    <h3>मेरे Notes और PDF</h3>
+    <div id="notes">Notes लोड हो रहे हैं...</div>
+  </div>
+
+  <div class="card">
+    <h3>मेरा Result</h3>
+    <div id="results">Result लोड हो रहा है...</div>
+  </div>
+</main>
+
+<script type="module">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
+
+import {
+  getAuth,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  collection,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAVDVE5dQtMNP0n5pP0T-aG2vL_CqM7dNA",
+  authDomain: "stepup-classes.firebaseapp.com",
+  projectId: "stepup-classes",
+  storageBucket: "stepup-classes.firebasestorage.app",
+  messagingSenderId: "341513224064",
+  appId: "1:341513224064:web:3581f99de8b7e6cf788b65",
+  measurementId: "G-62GWMYCGMB"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const status = document.getElementById("status");
+const profile = document.getElementById("profile");
+const notesBox = document.getElementById("notes");
+const resultsBox = document.getElementById("results");
+
+function addText(parent, label, value) {
+  const p = document.createElement("p");
+  p.textContent = label + ": " + (value ?? "");
+  parent.appendChild(p);
+}
+
+function showMessage(parent, message) {
+  parent.textContent = message;
+}
+
+document.getElementById("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+  window.location.href = "login.html";
+});
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "login.html";
+    return;
+  }
+
+  try {
+    const studentRef = doc(db, "students", user.uid);
+    const studentSnap = await getDoc(studentRef);
+
+    if (!studentSnap.exists()) {
+      await signOut(auth);
+      window.location.href = "login.html";
+      return;
+    }
+
+    const student = studentSnap.data();
+
+    if (student.active !== true) {
+      await signOut(auth);
+      window.location.href = "login.html";
+      return;
+    }
+
+    status.textContent = "स्वागत है!";
+
+    addText(profile, "नाम", student.name);
+    addText(profile, "Student ID", student.studentId);
+    addText(profile, "कक्षा", student.class);
+
+    // Published Notes
+    const notesQuery = query(
+      collection(db, "notes"),
+      where("published", "==", true)
+    );
+
+    const notesSnap = await getDocs(notesQuery);
+    notesBox.replaceChildren();
+
+    let noteCount = 0;
+
+    notesSnap.forEach((noteDoc) => {
+      const note = noteDoc.data();
+
+      if (note.class !== student.class) return;
+
+      const item = document.createElement("div");
+      item.className = "item";
+
+      const link = document.createElement("a");
+      link.textContent = note.title || "Notes खोलें";
+      link.href = note.url || "#";
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+
+      item.appendChild(link);
+      notesBox.appendChild(item);
+      noteCount++;
+    });
+
+    if (noteCount === 0) {
+      showMessage(notesBox, "अभी आपकी कक्षा के Notes उपलब्ध नहीं हैं।");
+    }
+
+    // Student Results
+    const resultsQuery = query(
+      collection(db, "results"),
+      where("studentUid", "==", user.uid)
+    );
+
+    const resultsSnap = await getDocs(resultsQuery);
+    resultsBox.replaceChildren();
+
+    if (resultsSnap.empty) {
+      showMessage(resultsBox, "अभी आपका Result उपलब्ध नहीं है।");
+    } else {
+      resultsSnap.forEach((resultDoc) => {
+        const result = resultDoc.data();
+        const item = document.createElement("div");
+        item.className = "item";
+
+        addText(item, "परीक्षा", result.exam);
+        addText(item, "विषय", result.subject);
+        addText(item, "अंक", result.marks);
+        addText(item, "कुल अंक", result.total);
+
+        resultsBox.appendChild(item);
+      });
+    }
+
+  } catch (error) {
+    console.error(error);
+    status.textContent =
+      "जानकारी लोड नहीं हुई। कृपया बाद में कोशिश करें।";
+  }
+});
+</script>
+
+</body>
+</html>
