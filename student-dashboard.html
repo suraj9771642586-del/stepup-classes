@@ -7,176 +7,41 @@
 <title>Student Dashboard | StepUp Classes</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-body {
-    background: #f1f5f9;
-    color: #243247;
-}
-
-header {
-    background: linear-gradient(120deg, #0d47a1, #1976d2);
-    color: white;
-    padding: 18px 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    box-shadow: 0 3px 12px #0002;
-}
-
-header h2 {
-    font-size: 23px;
-}
-
-button {
-    border: none;
-    border-radius: 8px;
-    padding: 11px 17px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.logout {
-    background: #e53935;
-    color: white;
-}
-
-main {
-    max-width: 1050px;
-    margin: 28px auto;
-    padding: 0 16px;
-}
-
-.welcome {
-    background: linear-gradient(120deg, #1565c0, #42a5f5);
-    color: white;
-    padding: 28px;
-    border-radius: 16px;
-    margin-bottom: 22px;
-}
-
-.welcome h1 {
-    margin-bottom: 10px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
-}
-
-.card {
-    background: white;
-    padding: 22px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px #0000000d;
-}
-
-.card h3 {
-    color: #0d47a1;
-    margin-bottom: 16px;
-    font-size: 20px;
-}
-
-.info {
-    padding: 11px 0;
-    border-bottom: 1px solid #edf0f4;
-    overflow-wrap: anywhere;
-}
-
-.item {
-    padding: 14px 0;
-    border-bottom: 1px solid #edf0f4;
-}
-
-.item:last-child {
-    border-bottom: none;
-}
-
-.item p {
-    margin: 6px 0;
-}
-
-.open-btn {
-    display: inline-block;
-    margin-top: 8px;
-    padding: 9px 15px;
-    background: #1565c0;
-    color: white;
-    text-decoration: none;
-    border-radius: 7px;
-    font-weight: bold;
-}
-
-.open-btn:hover {
-    background: #0d47a1;
-}
-
-.form-group {
-    margin-bottom: 14px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 7px;
-    font-weight: bold;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-.change-btn {
-    background: #16834a;
-    color: white;
-    width: 100%;
-    font-size: 15px;
-}
-
-.message {
-    margin-top: 12px;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
-}
-
-.muted {
-    color: #64748b;
-    line-height: 1.6;
-}
-
-footer {
-    text-align: center;
-    padding: 22px;
-    color: #64748b;
-}
-
-@media(max-width: 600px) {
-    header {
-        padding: 16px;
-    }
-
-    header h2 {
-        font-size: 19px;
-    }
-
-    .welcome {
-        padding: 22px;
-    }
-
-    .card {
-        padding: 18px;
-    }
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f1f5f9;color:#243247}
+header{background:linear-gradient(120deg,#0d47a1,#1976d2);color:white;padding:18px 6%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;box-shadow:0 3px 12px #0002}
+header h2{font-size:23px}
+button{border:none;border-radius:8px;padding:11px 17px;cursor:pointer;font-weight:bold}
+.logout{background:#e53935;color:white}
+main{max-width:1050px;margin:28px auto;padding:0 16px}
+.welcome{background:linear-gradient(120deg,#1565c0,#42a5f5);color:white;padding:28px;border-radius:16px;margin-bottom:22px}
+.welcome h1{margin-bottom:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.card{background:white;padding:22px;border-radius:14px;box-shadow:0 4px 15px #0000000d}
+.card h3{color:#0d47a1;margin-bottom:16px;font-size:20px}
+.info{padding:11px 0;border-bottom:1px solid #edf0f4;overflow-wrap:anywhere}
+.item{padding:14px 0;border-bottom:1px solid #edf0f4}
+.item:last-child{border-bottom:none}
+.item p{margin:7px 0;overflow-wrap:anywhere}
+.open-btn{display:inline-block;margin-top:8px;padding:9px 15px;background:#1565c0;color:white;text-decoration:none;border-radius:7px;font-weight:bold}
+.open-btn:hover{background:#0d47a1}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;margin-bottom:7px;font-weight:bold}
+.form-group input{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:8px;font-size:15px}
+.change-btn{background:#16834a;color:white;width:100%;font-size:15px}
+.message{margin-top:12px;line-height:1.5;overflow-wrap:anywhere}
+.muted{color:#64748b;line-height:1.6}
+.result-card{background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:14px;margin:12px 0}
+.result-card h4{color:#0d47a1;margin-bottom:10px}
+.result-status{display:inline-block;padding:5px 12px;border-radius:20px;font-weight:bold;margin-top:8px}
+.pass{background:#dcfce7;color:#166534}
+.fail{background:#fee2e2;color:#991b1b}
+footer{text-align:center;padding:22px;color:#64748b}
+@media(max-width:600px){
+header{padding:16px}
+header h2{font-size:19px}
+.welcome{padding:22px}
+.card{padding:18px}
 }
 </style>
 </head>
@@ -184,397 +49,364 @@ footer {
 <body>
 
 <header>
-    <h2>🎓 StepUp Classes</h2>
-    <button class="logout" id="logoutBtn">Logout</button>
+<h2>🎓 StepUp Classes</h2>
+<button class="logout" id="logoutBtn">Logout</button>
 </header>
 
 <main>
+<section class="welcome">
+<h1>Student Dashboard</h1>
+<p id="welcomeText">स्वागत है! आपकी जानकारी लोड हो रही है...</p>
+</section>
 
-    <section class="welcome">
-        <h1>Student Dashboard</h1>
-        <p id="welcomeText">स्वागत है! आपकी जानकारी लोड हो रही है...</p>
-    </section>
+<div class="grid">
 
-    <div class="grid">
+<section class="card">
+<h3>👤 मेरी Profile</h3>
+<div id="profile">
+<p class="muted">जानकारी लोड हो रही है...</p>
+</div>
+</section>
 
-        <section class="card">
-            <h3>👤 मेरी Profile</h3>
-            <div id="profile">
-                <p class="muted">जानकारी लोड हो रही है...</p>
-            </div>
-        </section>
+<section class="card">
+<h3>📚 मेरे Notes और PDF</h3>
+<div id="notes">
+<p class="muted">Notes लोड हो रहे हैं...</p>
+</div>
+</section>
 
-        <section class="card">
-            <h3>📚 मेरे Notes और PDF</h3>
-            <div id="notes">
-                <p class="muted">Notes लोड हो रहे हैं...</p>
-            </div>
-        </section>
+<section class="card">
+<h3>🏆 मेरा Result</h3>
+<div id="results">
+<p class="muted">Result लोड हो रहा है...</p>
+</div>
+</section>
 
-        <section class="card">
-            <h3>🏆 मेरा Result</h3>
-            <div id="results">
-                <p class="muted">Result लोड हो रहा है...</p>
-            </div>
-        </section>
+<section class="card">
+<h3>🔐 Change Password</h3>
+<p class="muted" style="margin-bottom:16px">
+अपना पुराना पासवर्ड और नया पासवर्ड भरें।
+</p>
 
-        <section class="card">
-            <h3>🔐 Change Password</h3>
-            <p class="muted" style="margin-bottom:16px;">
-                अपना पुराना पासवर्ड और नया पासवर्ड भरें।
-            </p>
+<form id="passwordForm">
+<div class="form-group">
+<label for="oldPassword">पुराना Password</label>
+<input type="password" id="oldPassword" autocomplete="current-password" required>
+</div>
 
-            <form id="passwordForm">
+<div class="form-group">
+<label for="newPassword">नया Password</label>
+<input type="password" id="newPassword" minlength="8" autocomplete="new-password" required>
+</div>
 
-                <div class="form-group">
-                    <label for="oldPassword">पुराना Password</label>
-                    <input
-                        type="password"
-                        id="oldPassword"
-                        autocomplete="current-password"
-                        required
-                    >
-                </div>
+<div class="form-group">
+<label for="confirmPassword">नया Password दोबारा लिखें</label>
+<input type="password" id="confirmPassword" minlength="8" autocomplete="new-password" required>
+</div>
 
-                <div class="form-group">
-                    <label for="newPassword">नया Password</label>
-                    <input
-                        type="password"
-                        id="newPassword"
-                        minlength="8"
-                        autocomplete="new-password"
-                        required
-                    >
-                </div>
+<button type="submit" class="change-btn" id="changeBtn">Change Password</button>
+<p id="passwordMessage" class="message" aria-live="polite"></p>
+</form>
+</section>
 
-                <div class="form-group">
-                    <label for="confirmPassword">नया Password दोबारा लिखें</label>
-                    <input
-                        type="password"
-                        id="confirmPassword"
-                        minlength="8"
-                        autocomplete="new-password"
-                        required
-                    >
-                </div>
-
-                <button type="submit" class="change-btn" id="changeBtn">
-                    Change Password
-                </button>
-
-                <p id="passwordMessage" class="message" aria-live="polite"></p>
-
-            </form>
-        </section>
-
-    </div>
-
+</div>
 </main>
 
 <footer>
-    © 2026 StepUp Classes | All Rights Reserved.
+© 2026 StepUp Classes | All Rights Reserved.
 </footer>
 
 <script type="module">
 
-import { initializeApp }
+import {initializeApp}
 from "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 
 import {
-    getAuth,
-    onAuthStateChanged,
-    signOut,
-    EmailAuthProvider,
-    reauthenticateWithCredential,
-    updatePassword
+getAuth,onAuthStateChanged,signOut,
+EmailAuthProvider,reauthenticateWithCredential,updatePassword
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-auth.js";
 
 import {
-    getFirestore,
-    doc,
-    getDoc,
-    collection,
-    query,
-    where,
-    getDocs
+getFirestore,doc,getDoc,collection,query,where,getDocs
 } from "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-
-const firebaseConfig = {
-    apiKey: "AIzaSyAVDVE5dQtMNP0n5pP0T-aG2vL_CqM7dNA",
-    authDomain: "stepup-classes.firebaseapp.com",
-    projectId: "stepup-classes",
-    storageBucket: "stepup-classes.firebasestorage.app",
-    messagingSenderId: "341513224064",
-    appId: "1:341513224064:web:3581f99de8b7e6cf788b65",
-    measurementId: "G-62GWMYCGMB"
+const firebaseConfig={
+apiKey:"AIzaSyAVDVE5dQtMNP0n5pP0T-aG2vL_CqM7dNA",
+authDomain:"stepup-classes.firebaseapp.com",
+projectId:"stepup-classes",
+storageBucket:"stepup-classes.firebasestorage.app",
+messagingSenderId:"341513224064",
+appId:"1:341513224064:web:3581f99de8b7e6cf788b65",
+measurementId:"G-62GWMYCGMB"
 };
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
 
-const profile = document.getElementById("profile");
-const notesBox = document.getElementById("notes");
-const resultsBox = document.getElementById("results");
-const welcomeText = document.getElementById("welcomeText");
-const statusMessage = document.getElementById("passwordMessage");
+const profile=document.getElementById("profile");
+const notesBox=document.getElementById("notes");
+const resultsBox=document.getElementById("results");
+const welcomeText=document.getElementById("welcomeText");
+const statusMessage=document.getElementById("passwordMessage");
 
-
-function showMessage(parent, message) {
-    parent.textContent = message;
+function showMessage(parent,message){
+parent.textContent=message;
 }
 
-function addText(parent, label, value) {
-    const p = document.createElement("p");
-    p.className = "info";
-    p.textContent = label + ": " + (value ?? "उपलब्ध नहीं");
-    parent.appendChild(p);
+function addText(parent,label,value){
+const p=document.createElement("p");
+p.className="info";
+p.textContent=label+": "+(value??"उपलब्ध नहीं");
+parent.appendChild(p);
 }
 
+// Grade की गणना
+function calculateResult(marks,total){
+const percentage=total>0?(marks/total)*100:0;
+let grade;
 
-// LOGOUT
+if(percentage>=90)grade="A+";
+else if(percentage>=80)grade="A";
+else if(percentage>=70)grade="B";
+else if(percentage>=60)grade="C";
+else if(percentage>=45)grade="D";
+else if(percentage>=33)grade="E";
+else grade="F";
 
-document.getElementById("logoutBtn").addEventListener("click", async () => {
-    try {
-        await signOut(auth);
-        window.location.href = "login.html";
-    } catch (error) {
-        alert("Logout नहीं हो पाया। दोबारा कोशिश करें।");
-        console.error(error);
-    }
+return{
+percentage:Number(percentage.toFixed(2)),
+grade,
+status:percentage>=33?"Pass":"Fail"
+};
+}
+
+// Logout
+document.getElementById("logoutBtn").addEventListener("click",async()=>{
+try{
+await signOut(auth);
+window.location.href="login.html";
+}catch(error){
+alert("Logout नहीं हो पाया। दोबारा कोशिश करें।");
+console.error(error);
+}
 });
 
+// Change Password
+document.getElementById("passwordForm").addEventListener("submit",async(event)=>{
+event.preventDefault();
 
-// CHANGE PASSWORD
+const user=auth.currentUser;
+if(!user||!user.email){
+showMessage(statusMessage,"कृपया दोबारा Login करें।");
+return;
+}
 
-document.getElementById("passwordForm").addEventListener("submit", async (event) => {
+const oldPassword=document.getElementById("oldPassword").value;
+const newPassword=document.getElementById("newPassword").value;
+const confirmPassword=document.getElementById("confirmPassword").value;
+const changeBtn=document.getElementById("changeBtn");
 
-    event.preventDefault();
+statusMessage.style.color="#d32f2f";
 
-    const user = auth.currentUser;
+if(newPassword.length<8){
+showMessage(statusMessage,"नया Password कम से कम 8 अक्षर का होना चाहिए।");
+return;
+}
 
-    if (!user || !user.email) {
-        showMessage(statusMessage, "कृपया दोबारा Login करें।");
-        return;
-    }
+if(newPassword!==confirmPassword){
+showMessage(statusMessage,"दोनों नए Password एक जैसे नहीं हैं।");
+return;
+}
 
-    const oldPassword = document.getElementById("oldPassword").value;
-    const newPassword = document.getElementById("newPassword").value;
-    const confirmPassword = document.getElementById("confirmPassword").value;
-    const changeBtn = document.getElementById("changeBtn");
+if(oldPassword===newPassword){
+showMessage(statusMessage,"नया Password पुराने Password से अलग रखें।");
+return;
+}
 
-    statusMessage.style.color = "#d32f2f";
+changeBtn.disabled=true;
+changeBtn.textContent="कृपया प्रतीक्षा करें...";
 
-    if (newPassword.length < 8) {
-        showMessage(statusMessage, "नया Password कम से कम 8 अक्षर का होना चाहिए।");
-        return;
-    }
+try{
+const credential=EmailAuthProvider.credential(user.email,oldPassword);
+await reauthenticateWithCredential(user,credential);
+await updatePassword(user,newPassword);
 
-    if (newPassword !== confirmPassword) {
-        showMessage(statusMessage, "दोनों नए Password एक जैसे नहीं हैं।");
-        return;
-    }
+statusMessage.style.color="#16834a";
+showMessage(statusMessage,"आपका Password सफलतापूर्वक बदल गया है।");
+document.getElementById("passwordForm").reset();
 
-    if (oldPassword === newPassword) {
-        showMessage(statusMessage, "नया Password पुराने Password से अलग रखें।");
-        return;
-    }
+}catch(error){
+console.error(error);
+statusMessage.style.color="#d32f2f";
 
-    changeBtn.disabled = true;
-    changeBtn.textContent = "कृपया प्रतीक्षा करें...";
-
-    try {
-        const credential = EmailAuthProvider.credential(
-            user.email,
-            oldPassword
-        );
-
-        await reauthenticateWithCredential(user, credential);
-        await updatePassword(user, newPassword);
-
-        statusMessage.style.color = "#16834a";
-        showMessage(statusMessage, "आपका Password सफलतापूर्वक बदल गया है।");
-
-        document.getElementById("passwordForm").reset();
-
-    } catch (error) {
-        console.error(error);
-
-        statusMessage.style.color = "#d32f2f";
-
-        if (error.code === "auth/wrong-password" ||
-            error.code === "auth/invalid-credential") {
-            showMessage(statusMessage, "पुराना Password सही नहीं है।");
-        } else if (error.code === "auth/weak-password") {
-            showMessage(statusMessage, "कृपया अधिक मजबूत Password चुनें।");
-        } else if (error.code === "auth/requires-recent-login") {
-            showMessage(statusMessage, "कृपया Logout करके फिर Login करें और दोबारा कोशिश करें।");
-        } else {
-            showMessage(statusMessage, "Password नहीं बदल पाया। कृपया दोबारा कोशिश करें।");
-        }
-
-    } finally {
-        changeBtn.disabled = false;
-        changeBtn.textContent = "Change Password";
-    }
+if(error.code==="auth/wrong-password"||error.code==="auth/invalid-credential"){
+showMessage(statusMessage,"पुराना Password सही नहीं है।");
+}else if(error.code==="auth/weak-password"){
+showMessage(statusMessage,"कृपया अधिक मजबूत Password चुनें।");
+}else if(error.code==="auth/requires-recent-login"){
+showMessage(statusMessage,"कृपया Logout करके फिर Login करें और दोबारा कोशिश करें।");
+}else{
+showMessage(statusMessage,"Password नहीं बदल पाया। कृपया दोबारा कोशिश करें।");
+}
+}finally{
+changeBtn.disabled=false;
+changeBtn.textContent="Change Password";
+}
 });
 
+// Result दिखाएँ
+function displayResult(result){
+const item=document.createElement("div");
+item.className="result-card";
 
-// LOAD STUDENT DASHBOARD
+const calculated=calculateResult(
+Number(result.marks||0),
+Number(result.total||0)
+);
 
-onAuthStateChanged(auth, async (user) => {
+const percentage=result.percentage!==undefined
+?Number(result.percentage)
+:calculated.percentage;
 
-    if (!user) {
-        window.location.href = "login.html";
-        return;
-    }
+const grade=result.grade||calculated.grade;
+const status=result.status||calculated.status;
 
-    try {
+const title=document.createElement("h4");
+title.textContent=result.exam||"परीक्षा का Result";
+item.appendChild(title);
 
-        const studentRef = doc(db, "students", user.uid);
-        const studentSnap = await getDoc(studentRef);
+addText(item,"परीक्षा की तारीख",result.resultDate||"उपलब्ध नहीं");
+addText(item,"विषय",result.subject);
+addText(item,"प्राप्त अंक",result.marks);
+addText(item,"कुल अंक",result.total);
+addText(item,"प्रतिशत",percentage+"%");
+addText(item,"Grade",grade);
 
-        if (!studentSnap.exists()) {
-            await signOut(auth);
-            window.location.href = "login.html";
-            return;
-        }
+const statusText=document.createElement("span");
+statusText.className="result-status "+(status==="Pass"?"pass":"fail");
+statusText.textContent=status;
+item.appendChild(statusText);
 
-        const student = studentSnap.data();
+resultsBox.appendChild(item);
+}
 
-        if (student.active !== true) {
-            await signOut(auth);
-            window.location.href = "login.html";
-            return;
-        }
+// Student Dashboard लोड करें
+onAuthStateChanged(auth,async(user)=>{
 
-        welcomeText.textContent =
-            "स्वागत है, " + (student.name || "विद्यार्थी") + "!";
+if(!user){
+window.location.href="login.html";
+return;
+}
 
-        // PROFILE
+try{
 
-        profile.replaceChildren();
+const studentRef=doc(db,"students",user.uid);
+const studentSnap=await getDoc(studentRef);
 
-        addText(profile, "नाम", student.name);
-        addText(profile, "Student ID", student.studentId);
-        addText(profile, "कक्षा", student.class);
+if(!studentSnap.exists()){
+await signOut(auth);
+window.location.href="login.html";
+return;
+}
 
+const student=studentSnap.data();
 
-        // NOTES
+if(student.active!==true){
+await signOut(auth);
+window.location.href="login.html";
+return;
+}
 
-        const notesQuery = query(
-            collection(db, "notes"),
-            where("published", "==", true)
-        );
+welcomeText.textContent="स्वागत है, "+(student.name||"विद्यार्थी")+"!";
 
-        const notesSnap = await getDocs(notesQuery);
+// Profile
+profile.replaceChildren();
+addText(profile,"नाम",student.name);
+addText(profile,"Student ID",student.studentId);
+addText(profile,"कक्षा",student.class);
 
-        notesBox.replaceChildren();
+// Notes
+const notesQuery=query(
+collection(db,"notes"),
+where("published","==",true)
+);
 
-        let noteCount = 0;
+const notesSnap=await getDocs(notesQuery);
+notesBox.replaceChildren();
 
-        notesSnap.forEach((noteDoc) => {
+let noteCount=0;
 
-            const note = noteDoc.data();
+notesSnap.forEach(noteDoc=>{
+const note=noteDoc.data();
 
-            if (String(note.class) !== String(student.class)) {
-                return;
-            }
+if(String(note.class)!==String(student.class))return;
+if(!note.url)return;
 
-            if (!note.url) {
-                return;
-            }
+let safeURL;
+try{
+safeURL=new URL(note.url,window.location.href);
+if(!["https:","http:"].includes(safeURL.protocol))return;
+}catch{
+return;
+}
 
-            let safeURL;
+const item=document.createElement("div");
+item.className="item";
 
-            try {
-                safeURL = new URL(note.url, window.location.href);
+const title=document.createElement("p");
+title.textContent=note.title||"Study Notes";
 
-                if (!["https:", "http:"].includes(safeURL.protocol)) {
-                    return;
-                }
-            } catch {
-                return;
-            }
+const link=document.createElement("a");
+link.className="open-btn";
+link.textContent="📖 Notes खोलें";
+link.href=safeURL.href;
+link.target="_blank";
+link.rel="noopener noreferrer";
 
-            const item = document.createElement("div");
-            item.className = "item";
+item.append(title,link);
+notesBox.appendChild(item);
+noteCount++;
+});
 
-            const title = document.createElement("p");
-            title.textContent = note.title || "Study Notes";
+if(noteCount===0){
+showMessage(notesBox,"अभी आपकी कक्षा के Notes उपलब्ध नहीं हैं।");
+}
 
-            const link = document.createElement("a");
-            link.className = "open-btn";
-            link.textContent = "📖 Notes खोलें";
-            link.href = safeURL.href;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
+// Results
+const resultsQuery=query(
+collection(db,"results"),
+where("studentUid","==",user.uid)
+);
 
-            item.appendChild(title);
-            item.appendChild(link);
-            notesBox.appendChild(item);
+const resultsSnap=await getDocs(resultsQuery);
+resultsBox.replaceChildren();
 
-            noteCount++;
-        });
+if(resultsSnap.empty){
+showMessage(resultsBox,"अभी आपका Result उपलब्ध नहीं है।");
+}else{
 
-        if (noteCount === 0) {
-            showMessage(
-                notesBox,
-                "अभी आपकी कक्षा के Notes उपलब्ध नहीं हैं।"
-            );
-        }
+const allResults=resultsSnap.docs.map(d=>d.data());
 
+allResults.sort((a,b)=>{
+const dateA=a.resultDate||a.createdAt||"";
+const dateB=b.resultDate||b.createdAt||"";
+return String(dateB).localeCompare(String(dateA));
+});
 
-        // RESULTS
+allResults.forEach(result=>{
+displayResult(result);
+});
+}
 
-        const resultsQuery = query(
-            collection(db, "results"),
-            where("studentUid", "==", user.uid)
-        );
-
-        const resultsSnap = await getDocs(resultsQuery);
-
-        resultsBox.replaceChildren();
-
-        if (resultsSnap.empty) {
-
-            showMessage(resultsBox, "अभी आपका Result उपलब्ध नहीं है।");
-
-        } else {
-
-            resultsSnap.forEach((resultDoc) => {
-
-                const result = resultDoc.data();
-
-                const item = document.createElement("div");
-                item.className = "item";
-
-                addText(item, "परीक्षा", result.exam);
-                addText(item, "विषय", result.subject);
-                addText(item, "अंक", result.marks);
-                addText(item, "कुल अंक", result.total);
-
-                resultsBox.appendChild(item);
-            });
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
-        welcomeText.textContent =
-            "जानकारी लोड नहीं हुई। कृपया बाद में कोशिश करें।";
-
-        showMessage(
-            profile,
-            "Firebase से जानकारी नहीं मिल पाई। कृपया बाद में कोशिश करें।"
-        );
-    }
+}catch(error){
+console.error(error);
+welcomeText.textContent="जानकारी लोड नहीं हुई। कृपया बाद में कोशिश करें।";
+showMessage(profile,"Firebase से जानकारी नहीं मिल पाई। कृपया बाद में कोशिश करें।");
+}
 
 });
 
 </script>
-
 </body>
 </html>
