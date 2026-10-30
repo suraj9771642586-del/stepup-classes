@@ -218,3 +218,17 @@ text-align:center;
 width:220px;
 }
 }
+/* Navigation menu link colors */
+nav a {
+    color: #ffffff !important;
+    text-decoration: none !important;
+}
+
+nav a:visited {
+    color: #ffffff !important;
+}
+
+nav a:hover {
+    color: #ffcc00 !important;
+    text-decoration: underline !important;
+}
