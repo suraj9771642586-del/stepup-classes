@@ -248,3 +248,24 @@ footer {
         width: 220px;
     }
 }
+/* Navbar links - fix all link colors */
+.navbar a,
+nav a,
+.nav-links a {
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.navbar a:visited,
+nav a:visited,
+.nav-links a:visited {
+  color: #ffffff !important;
+}
+
+.navbar a:hover,
+nav a:hover,
+.nav-links a:hover {
+  color: #ffd700 !important;
+  text-decoration: none !important;
+}
+
