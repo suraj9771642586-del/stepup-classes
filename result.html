@@ -4,84 +4,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Student Result | StepUp Classes</title>
+
 <link rel="stylesheet" href="style.css">
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f8ff;
     margin: 0;
-    color: #222;
+    font-family: Arial, sans-serif;
+    background:
+      linear-gradient(rgba(5, 35, 85, 0.60), rgba(5, 35, 85, 0.65)),
+      url("https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1600&q=85");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
 }
 
 header {
-    background: #0d47a1;
+    background: linear-gradient(90deg, #063477, #0878df);
     color: white;
-    padding: 20px;
+    padding: 18px;
     text-align: center;
+    box-shadow: 0 3px 12px rgba(0,0,0,.2);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+header p {
+    margin: 6px 0 0;
+}
+
+.page-title {
+    text-align: center;
+    color: white;
+    padding: 25px 10px 5px;
+    text-shadow: 0 2px 8px rgba(0,0,0,.5);
+}
+
+.page-title h2 {
+    font-size: 34px;
+    margin: 0 0 8px;
+}
+
+.page-title p {
+    font-size: 16px;
 }
 
 .container {
+    width: 92%;
     max-width: 650px;
-    margin: 35px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,.12);
+    margin: 20px auto 45px;
+    background: rgba(255,255,255,.97);
+    padding: 28px;
+    border-radius: 18px;
+    box-shadow: 0 12px 35px rgba(0,0,0,.3);
+    border: 1px solid #d5e8ff;
+}
+
+.container h2 {
+    text-align: center;
+    color: #0d47a1;
+}
+
+.notice {
+    background: #eaf4ff;
+    border-left: 5px solid #0878df;
+    padding: 14px;
+    border-radius: 8px;
+    color: #164477;
+    line-height: 1.6;
+    margin: 18px 0;
 }
 
 input {
-    box-sizing: border-box;
     width: 100%;
-    padding: 13px;
+    padding: 15px;
     margin: 12px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    border: 1px solid #bdd8f5;
+    border-radius: 9px;
     font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #0878df;
+    box-shadow: 0 0 7px rgba(8,120,223,.2);
 }
 
 button, .btn {
-    display: inline-block;
+    display: block;
     width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    background: #0d47a1;
-    color: white;
+    padding: 14px;
+    margin-top: 12px;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    text-align: center;
+    border-radius: 9px;
+    background: linear-gradient(90deg, #0878df, #064bb5);
+    color: white;
     text-decoration: none;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 10px;
+    transition: .2s;
 }
 
 button:hover, .btn:hover {
-    background: #08306b;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(0,0,0,.2);
+}
+
+button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.btn-light {
+    background: white;
+    color: #0755b5;
+    border: 1px solid #b8d8ff;
 }
 
 #message {
-    margin: 15px 0;
     text-align: center;
+    margin: 15px 0;
     font-weight: bold;
 }
 
 .result-card {
-    background: #f7faff;
-    border: 1px solid #d7e5ff;
-    border-radius: 9px;
-    padding: 17px;
+    background: #f5faff;
+    border: 1px solid #c8e0ff;
+    border-radius: 12px;
+    padding: 18px;
     margin-top: 18px;
 }
 
 .result-card h3 {
-    color: #0d47a1;
-    margin-top: 0;
+    color: #064ba8;
+    border-bottom: 1px solid #d7e6f7;
+    padding-bottom: 10px;
 }
 
 .result-row {
-    margin: 9px 0;
+    padding: 8px 0;
+    border-bottom: 1px dashed #d5e3f3;
     line-height: 1.5;
 }
 
@@ -95,32 +169,59 @@ button:hover, .btn:hover {
     font-weight: bold;
 }
 
-.small-note {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.5;
+footer {
+    background: #063477;
+    color: white;
+    text-align: center;
+    padding: 18px;
+    margin-top: 30px;
 }
 
+@media(max-width: 500px) {
+    .container {
+        padding: 20px;
+    }
+
+    .page-title h2 {
+        font-size: 27px;
+    }
+
+    body {
+        background-attachment: scroll;
+    }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-    <h1>StepUp Classes</h1>
-    <h2>Student Result</h2>
+    <h1>🎓 StepUp Classes</h1>
+    <p>Learn • Grow • Succeed</p>
 </header>
+
+<div class="page-title">
+    <h2>Student Result</h2>
+    <p>Check Your Performance • Know Your Progress • Build Your Future</p>
+</div>
 
 <div class="container">
 
-    <h2>अपना Result देखें</h2>
+    <h2>📄 अपना Result देखें</h2>
 
     <div id="loginBox" hidden>
-        <p>रिजल्ट देखने के लिए पहले विद्यार्थी अकाउंट से लॉगिन करें।</p>
+        <div class="notice">
+            🔒 रिजल्ट देखने के लिए पहले अपने Student Account से Login करें।
+        </div>
         <a href="login.html" class="btn">Student Login</a>
     </div>
 
     <div id="resultBox" hidden>
+
+        <div class="notice">
+            🔐 केवल लॉगिन किए हुए विद्यार्थी को उसका अपना रिजल्ट दिखाया जाएगा।
+        </div>
+
         <p id="studentInfo"></p>
 
         <input
@@ -130,28 +231,28 @@ button:hover, .btn:hover {
             autocomplete="off"
         >
 
-        <button id="checkBtn">Check Result</button>
+        <button id="checkBtn">🔍 Check Result</button>
 
         <div id="message"></div>
         <div id="result"></div>
+
     </div>
 
-    <div style="text-align:center; margin-top:20px;">
-        <a href="student-dashboard.html" class="btn">Student Dashboard</a>
-        <a href="index.html" class="btn">Back to Home</a>
-    </div>
-
-    <p class="small-note">
-        सुरक्षा के लिए केवल लॉगिन किए हुए विद्यार्थी को उसका अपना रिजल्ट दिखाया जाता है।
-    </p>
+    <a href="index.html" class="btn btn-light">⬅ Back to Home</a>
+    <a href="student-dashboard.html" class="btn">👨‍🎓 Student Dashboard</a>
 
 </div>
 
+<footer>
+    © 2026 StepUp Classes | All Rights Reserved.
+</footer>
+
 <script type="module">
+
 import { initializeApp } from
 "https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js";
 
-import { 
+import {
     getAuth,
     onAuthStateChanged
 } from
@@ -168,7 +269,6 @@ import {
 } from
 "https://www.gstatic.com/firebasejs/11.6.0/firebase-firestore.js";
 
-// Firebase Configuration
 const firebaseConfig = {
     apiKey: "AIzaSyAVDVE5dQtMNP0n5pP0T-aG2vL_CqM7dNA",
     authDomain: "stepup-classes.firebaseapp.com",
@@ -199,30 +299,14 @@ function showMessage(text, color = "#333") {
     message.style.color = color;
 }
 
-function getGrade(percentage) {
-    if (percentage >= 90) return "A+";
-    if (percentage >= 80) return "A";
-    if (percentage >= 70) return "B";
-    if (percentage >= 60) return "C";
-    if (percentage >= 45) return "D";
-    if (percentage >= 33) return "E";
+function getGrade(p) {
+    if (p >= 90) return "A+";
+    if (p >= 80) return "A";
+    if (p >= 70) return "B";
+    if (p >= 60) return "C";
+    if (p >= 45) return "D";
+    if (p >= 33) return "E";
     return "F";
-}
-
-function formatDate(value) {
-    if (!value) return "उपलब्ध नहीं";
-
-    if (value.toDate) {
-        return value.toDate().toLocaleDateString("hi-IN");
-    }
-
-    const date = new Date(value);
-
-    if (Number.isNaN(date.getTime())) {
-        return String(value);
-    }
-
-    return date.toLocaleDateString("hi-IN");
 }
 
 function addRow(parent, label, value) {
@@ -239,7 +323,22 @@ function addRow(parent, label, value) {
     parent.appendChild(row);
 }
 
+function formatDate(value) {
+    if (!value) return "उपलब्ध नहीं";
+
+    if (value.toDate) {
+        return value.toDate().toLocaleDateString("hi-IN");
+    }
+
+    const date = new Date(value);
+
+    return Number.isNaN(date.getTime())
+        ? String(value)
+        : date.toLocaleDateString("hi-IN");
+}
+
 onAuthStateChanged(auth, async (user) => {
+
     currentUser = user;
 
     if (!user) {
@@ -253,9 +352,9 @@ onAuthStateChanged(auth, async (user) => {
         const profileSnap = await getDoc(profileRef);
 
         if (!profileSnap.exists()) {
-            showMessage("Student Profile नहीं मिला। Admin से संपर्क करें।", "red");
-            resultBox.hidden = false;
             loginBox.hidden = true;
+            resultBox.hidden = false;
+            showMessage("Student Profile नहीं मिला। Admin से संपर्क करें।", "red");
             checkBtn.disabled = true;
             return;
         }
@@ -263,9 +362,9 @@ onAuthStateChanged(auth, async (user) => {
         currentStudent = profileSnap.data();
 
         if (currentStudent.active === false) {
-            showMessage("आपका Student Account बंद है। Admin से संपर्क करें।", "red");
-            resultBox.hidden = false;
             loginBox.hidden = true;
+            resultBox.hidden = false;
+            showMessage("आपका अकाउंट बंद है। Admin से संपर्क करें।", "red");
             checkBtn.disabled = true;
             return;
         }
@@ -274,7 +373,7 @@ onAuthStateChanged(auth, async (user) => {
         resultBox.hidden = false;
 
         studentInfo.textContent =
-            "लॉगिन विद्यार्थी: " + (currentStudent.name || "Student");
+            "👤 लॉगिन विद्यार्थी: " + (currentStudent.name || "Student");
 
     } catch (error) {
         console.error(error);
@@ -283,15 +382,16 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 checkBtn.addEventListener("click", async () => {
+
     if (!currentUser || !currentStudent) {
         showMessage("पहले Student Login करें।", "red");
         return;
     }
 
     const enteredRoll = rollInput.value.trim().toLowerCase();
+
     const actualRoll = String(currentStudent.studentId || "")
-        .trim()
-        .toLowerCase();
+        .trim().toLowerCase();
 
     resultDiv.replaceChildren();
 
@@ -309,6 +409,7 @@ checkBtn.addEventListener("click", async () => {
     showMessage("Result लोड हो रहा है...");
 
     try {
+
         const resultsQuery = query(
             collection(db, "results"),
             where("studentUid", "==", currentUser.uid)
@@ -321,7 +422,7 @@ checkBtn.addEventListener("click", async () => {
             return;
         }
 
-        showMessage("आपका Result सफलतापूर्वक मिल गया।", "green");
+        showMessage("✅ आपका Result मिल गया।", "green");
 
         const heading = document.createElement("h3");
         heading.textContent = "विद्यार्थी: " + (currentStudent.name || "Student");
@@ -331,25 +432,31 @@ checkBtn.addEventListener("click", async () => {
         addRow(resultDiv, "Class", currentStudent.class || "—");
 
         snapshot.forEach((resultDoc) => {
+
             const data = resultDoc.data();
 
             const marks = Number(data.marks);
             const total = Number(data.total);
 
-            const percentage = Number.isFinite(marks) &&
-                Number.isFinite(total) && total > 0
+            const calculatedPercentage =
+                Number.isFinite(marks) &&
+                Number.isFinite(total) &&
+                total > 0
                 ? (marks / total) * 100
                 : 0;
 
             const savedPercentage = Number(data.percentage);
-            const finalPercentage =
-                Number.isFinite(savedPercentage) && data.percentage !== undefined
-                ? savedPercentage
-                : percentage;
 
-            const grade = data.grade || getGrade(finalPercentage);
+            const percentage =
+                data.percentage !== undefined &&
+                Number.isFinite(savedPercentage)
+                ? savedPercentage
+                : calculatedPercentage;
+
+            const grade = data.grade || getGrade(percentage);
+
             const status = data.status ||
-                (finalPercentage >= 33 ? "Pass" : "Fail");
+                (percentage >= 33 ? "Pass" : "Fail");
 
             const card = document.createElement("div");
             card.className = "result-card";
@@ -361,16 +468,19 @@ checkBtn.addEventListener("click", async () => {
             addRow(card, "Subject", data.subject || "—");
             addRow(card, "Exam Date", formatDate(data.resultDate));
             addRow(card, "Marks", `${data.marks ?? "—"} / ${data.total ?? "—"}`);
-            addRow(card, "Percentage", finalPercentage.toFixed(2) + "%");
+            addRow(card, "Percentage", percentage.toFixed(2) + "%");
             addRow(card, "Grade", grade);
 
             const statusRow = document.createElement("p");
+
             statusRow.className = "result-row " +
                 (status === "Pass" ? "status-pass" : "status-fail");
+
             statusRow.textContent = "Result: " + status;
 
             card.appendChild(statusRow);
             resultDiv.appendChild(card);
+
         });
 
     } catch (error) {
@@ -382,6 +492,7 @@ checkBtn.addEventListener("click", async () => {
     } finally {
         checkBtn.disabled = false;
     }
+
 });
 
 </script>
